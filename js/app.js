@@ -113,11 +113,15 @@ function renderCouncilors() {
     const info = el("div"); info.append(el("h3", "", p.nome), el("span", "party", p.partido));
     head.append(info);
 
+    // INSERÇÃO DO STATUS DA ASSINATURA CONFORME PREPARADO NO CSS
+    const seloAssinatura = criarStatusAssinatura(p);
+    head.append(seloAssinatura);
+
     const actions = el("div", "card-actions");
     const copy = el("button", "btn secondary", "Copiar cobrança"); copy.type = "button";
     copy.addEventListener("click", () => copyText(messageFor(p)));
     
-   const insta = el("a", "btn btn-instagram", "");
+    const insta = el("a", "btn btn-instagram", "");
     insta.href = `https://www.instagram.com/${encodeURIComponent(p.instagram)}/`;
     insta.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @${p.instagram}`;
     insta.target = "_blank"; insta.rel = "noopener noreferrer"; insta.setAttribute("aria-label", `Abrir Instagram de ${p.nome} (nova aba)`);
@@ -151,57 +155,40 @@ async function init() {
     });
     const link = safeUrl(v.fonteUrl);
     $("sourceLine").textContent = `Fonte dos nomes, partidos e e-mails: ${v.fonte}${link ? " (" + link + ")" : ""}. Conferido em ${v.conferidoEm}. Confirme sempre no site oficial.`;
+    
+    // ATIVAÇÃO DO CONTADOR NO CARREGAMENTO DA PÁGINA
+    atualizarContadorAssinaturas(state.people);
+    
     renderCouncilors();
   } catch (e) {
     $("campanha").replaceChildren(el("div", "error", "Não foi possível carregar os dados. Se abriu o arquivo direto no navegador, use um servidor local (extensão Live Server do VS Code) ou acesse o site publicado."));
   }
 }
 
-["input", "change"].forEach(ev => { $("searchName").addEventListener(ev, renderCouncilors); $("partyFilter").addEventListener(ev, renderCouncilors); $("sortOrder").addEventListener(ev, renderCouncilors); });
-$("resetMessage").addEventListener("click", () => { if (state.campaign) { $("customMessage").value = state.campaign.mensagem; showToast("Texto sugerido restaurado."); } });
-$("copyCustom").addEventListener("click", () => {
-  const m = $("customMessage").value.trim();
-  if (!m) return showToast("Escreva uma mensagem antes de copiar.");
-  copyText(m.replaceAll("{nome}", "vereador(a)"));
+// INICIALIZAÇÃO DOS EVENTOS LISTENER RESTANTES DO ARQUIVO ORIGINAL
+["input", "change"].forEach(ev => { 
+  if($("searchName")) $("searchName").addEventListener(ev, renderCouncilors); 
+  if($("partyFilter")) $("partyFilter").addEventListener(ev, renderCouncilors);
 });
-init();
+if($("sortOrder")) $("sortOrder").addEventListener("change", renderCouncilors);
 
-/**
- * Atualiza o contador com base na lista completa de vereadores.
- * Não use apenas os vereadores filtrados pela pesquisa.
- */
+// FUNÇÕES DE LOGICA DO CONTADOR FLUTUANTE E DE STATUS
 function atualizarContadorAssinaturas(vereadores) {
   const contador = document.getElementById("signatureCount");
   const barra = document.getElementById("signatureProgressBar");
   const progresso = document.getElementById("signatureProgress");
 
-  if (!contador || !barra || !progresso || !Array.isArray(vereadores)) {
-    return;
-  }
+  if (!contador || !barra || !progresso || !Array.isArray(vereadores)) return;
 
   const total = vereadores.length;
-
-  const assinaturas = vereadores.filter(
-    vereador => vereador.assinaturaConfirmada === true
-  ).length;
-
-  const percentual = total > 0
-    ? (assinaturas / total) * 100
-    : 0;
+  const assinaturas = vereadores.filter(v => v.assinaturaConfirmada === true).length;
+  const percentual = total > 0 ? (assinaturas / total) * 100 : 0;
 
   contador.textContent = `${assinaturas} de ${total}`;
-
   barra.style.width = `${percentual}%`;
-
-  progresso.setAttribute(
-    "aria-valuenow",
-    percentual.toFixed(1)
-  );
+  progresso.setAttribute("aria-valuenow", percentual.toFixed(1).toString());
 }
 
-/**
- * Cria o selo que aparece no card de cada vereador.
- */
 function criarStatusAssinatura(vereador) {
   const status = document.createElement("div");
 
@@ -211,19 +198,7 @@ function criarStatusAssinatura(vereador) {
 
     if (vereador.dataAssinatura) {
       const data = document.createElement("small");
-
       const partes = vereador.dataAssinatura.split("-");
-
       data.textContent = partes.length === 3
-        ? `Data: ${partes[2]}/${partes[1]}/${partes[0]}`
-        : `Data: ${vereador.dataAssinatura}`;
-
-      status.appendChild(data);
-    }
-  } else {
-    status.className = "signature-status pending";
-    status.textContent = "◷ Assinatura não confirmada";
-  }
-
-  return status;
-}
+        ? ` Data: ${partes[2]}/${partes[1]}/${partes[0]}`
+        : ` Data: ${vereador.dataAssinatura}`;
