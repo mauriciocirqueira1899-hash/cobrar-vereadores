@@ -1,8 +1,7 @@
-
 {
   "fonte": "Câmara Municipal de Salvador, 20ª Legislatura (2025-2028)",
   "fonteUrl": "https://www.cms.ba.gov.br/vereadores",
-  "conferidoEm": "2026-10-28",
+  "conferidoEm": "2026-10-29",
   "vereadores": [
     {
       "nome": "Aladilce Souza",
@@ -73,8 +72,8 @@
       "email": "carlosmuniz@cms.ba.gov.br",
       "instagram": "carlosmuniz.oficial",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/799d733c84abf66dcb356ceea410a07e_1683139594.jpg",
-      "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
     },
     {
       "nome": "Cezar Leite",
@@ -119,7 +118,7 @@
       "instagram": "drdavidrios",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/fc5a33a1edbfce6519e15efd1b25edfb_1735308544.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Débora Santana",
@@ -146,7 +145,7 @@
       "instagram": "elieteparaguassuoficial",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/a253f7f97019cf1a2c74eed3ce23db58_1735309793.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": ""
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Fábio Souza",
@@ -164,7 +163,7 @@
       "instagram": "hamiltonassis",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/22ced79030992233449d6c1e0cea47df_1735309882.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Helio Ferreira",
@@ -173,7 +172,7 @@
       "instagram": "helioferreiravereador",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/7b7916dd2de56297aa29cccb2bbf48d4_1736523711.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Ireuda Silva",
@@ -199,8 +198,8 @@
       "email": "joaoclaudiobacelar@cms.ba.gov.br",
       "instagram": "bacelarjc",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/668426da67b63e07674ea8c2ff286289_1735313477.jpg",
-      "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
     },
     {
       "nome": "Jorge Araújo",
@@ -272,7 +271,7 @@
       "instagram": "martamerepresenta",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/b3e6c893288d4eb6ecd2339a8a0afe84_1736862830.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Maurício Trindade",
@@ -317,7 +316,7 @@
       "instagram": "randersonleal",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/434f3fd22d882b791615dccd0073179b_1751296075.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Ricardo Almeida",
@@ -380,7 +379,7 @@
       "instagram": "silviohumberto_",
       "foto": "https://www.cms.ba.gov.br/uploads/vereadores/b2fc19323fe826741d0448e2eaaf703d_1736863163.jpg",
       "assinaturaConfirmada": true,
-      "dataAssinatura": "27-10-2026"
+      "dataAssinatura": "2026-10-27"
     },
     {
       "nome": "Téo Senna",

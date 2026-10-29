@@ -18,6 +18,7 @@ function el(tag, cls, text) {
   return e;
 }
 
+const IG_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>';
 const slug = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const safeUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
 const messageFor = p => ($("customMessage").value.trim() || state.campaign.mensagem).replaceAll("{nome}", p.nome);
@@ -56,11 +57,11 @@ function renderCampaign(c) {
   if (link) {
     const a = el("a", "btn secondary", "Abrir documento oficial" + (r.numero ? " nº " + r.numero : ""));
     a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer"; body.append(a);
-    if (r.situacao) body.append(el("p", "docs-empty", "Situação: " + r.situacao));
   } else {
-    body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmation por fonte oficial."));
+    body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmação por fonte oficial."));
   }
 
+  if (r.situacao) body.append(el("p", "docs-empty", "Situação: " + r.situacao));
   body.append(el("h4", "", "Linha do tempo (com fontes)"));
   const ul = el("ul", "timeline");
   (c.linhaDoTempo || []).forEach(i => {
@@ -113,34 +114,142 @@ function renderCouncilors() {
     const info = el("div"); info.append(el("h3", "", p.nome), el("span", "party", p.partido));
     head.append(info);
 
-    // ADICIONA O SELO DE STATUS DA ASSINATURA DENTRO DO CARD
-    const seloAssinatura = criarStatusAssinatura(p);
-    card.append(seloAssinatura);
-
     const actions = el("div", "card-actions");
-    const copy = el("button", "btn secondary", "Copiar cobrança"); copy.type = "button";
-    copy.addEventListener("click", () => copyText(messageFor(p)));
-    
-    const insta = el("a", "btn btn-instagram", "");
-    insta.href = `https://instagram.com{encodeURIComponent(p.instagram)}/`;
-    insta.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @${p.instagram}`;
-    insta.target = "_blank"; insta.rel = "noopener noreferrer"; insta.setAttribute("aria-label", `Abrir Instagram de ${p.nome} (nova aba)`);
-    
-    actions.append(copy, insta);
-
-    if (p.email) {
-      const mail = el("a", "btn ghost mail", "Enviar e-mail institucional");
-      mail.href = "#"; mail.addEventListener("click", ev => {
-        ev.preventDefault();
-        const subj = encodeURIComponent("Cobrança cidadã: requerimento de CEI sobre a frota de ônibus");
-        location.href = `mailto:${p.email}?subject=${subj}&body=${encodeURIComponent(messageFor(p))}`;
-      });
-      mail.setAttribute("aria-label", `Enviar e-mail a ${p.nome}`);
-      actions.append(mail);
-    }
-    card.append(head, actions);
+    const cobrar = el("button", "btn", "Cobrar vereador(a)"); cobrar.type = "button";
+    cobrar.setAttribute("aria-haspopup", "dialog");
+    cobrar.addEventListener("click", () => openCobranca(p));
+    const insta = el("a", "btn btn-instagram"); insta.innerHTML = IG_SVG; insta.append(document.createTextNode(" @" + p.instagram));
+    insta.href = `https://www.instagram.com/${encodeURIComponent(p.instagram)}/`; insta.target = "_blank"; insta.rel = "noopener noreferrer";
+    insta.setAttribute("aria-label", `Abrir Instagram de ${p.nome} (nova aba)`);
+    actions.append(cobrar, insta);
+    card.append(head, sigBadge(p), actions);
     grid.append(card);
   });
+}
+
+
+/* ===== Assinaturas (campos do vereadores.json: assinaturaConfirmada, dataAssinatura, fonteAssinatura opcional) ===== */
+const fmtData = d => { const m = (d || "").match(/^(\d{4})-(\d{2})-(\d{2})$/) || (d || "").match(/^(\d{2})-(\d{2})-(\d{4})$/); return !m ? (d || "") : m[1].length === 4 ? `${m[3]}/${m[2]}/${m[1]}` : `${m[1]}/${m[2]}/${m[3]}`; };
+const sigCfg = () => (state.campaign && state.campaign.assinaturas) || {};
+function sigInfo(p) { return { ok: p.assinaturaConfirmada === true, url: safeUrl(p.fonteAssinatura || sigCfg().fonteUrl), data: fmtData(p.dataAssinatura) }; }
+function sigBadge(p) {
+  const i = sigInfo(p), d = el("div", "signature-status " + (i.ok ? "confirmed" : "pending"));
+  d.append(el("span", "", i.ok ? "✓ Assinatura confirmada" : "◷ Assinatura não confirmada"));
+  if (i.ok && (i.data || i.url)) {
+    const s = el("small"); if (i.data) s.append(document.createTextNode(i.data + (i.url ? " · " : "")));
+    if (i.url) { const a = el("a", "", "fonte"); a.href = i.url; a.target = "_blank"; a.rel = "noopener noreferrer"; s.append(a); }
+    d.append(s);
+  }
+  return d;
+}
+function updateCounter() {
+  const c = $("signatureCount"); if (!c) return;
+  const total = state.people.length, n = state.people.filter(p => sigInfo(p).ok).length, meta = Number(sigCfg().necessarias) || total;
+  const pct = Math.min(100, Math.round(n / meta * 100));
+  c.textContent = `${n} de ${meta}`;
+  const bar = $("signatureProgressBar"); if (bar) bar.style.width = pct + "%";
+  const pg = $("signatureProgress"); if (pg) pg.setAttribute("aria-valuenow", String(pct));
+  const lb = document.querySelector(".signature-counter-label");
+  if (lb) lb.textContent = sigCfg().necessarias ? `Assinaturas confirmadas (necessárias: ${meta})` : "Assinaturas confirmadas";
+}
+
+/* ===== Janela "Cobrar vereador" ===== */
+function buildModels(c, p) {
+  if (sigInfo(p).ok) return [
+    { rotulo: "Pedir divulgação do requerimento e do andamento", texto: "Olá, vereador(a) {nome}. Sou morador(a) de Salvador. Vi que o(a) senhor(a) consta entre os signatários do requerimento de CEI sobre a frota de ônibus no segundo turno. Peço que divulgue o texto do requerimento e o andamento, e que ajude a reunir as demais assinaturas necessárias, para que a população possa acompanhar. Obrigado(a)." },
+    { rotulo: "Escrever minha própria mensagem", texto: "" }
+  ];
+  if (Array.isArray(c.modelos) && c.modelos.length) return c.modelos;
+  return [
+    { rotulo: "Apoiar e assinar o requerimento de CEI", texto: c.mensagem },
+    { rotulo: "Pedir posicionamento público (sim ou não)", texto: "Olá, vereador(a) {nome}. Sou morador(a) de Salvador. Há requerimento para instalação de Comissão Especial de Inquérito sobre a redução da frota de ônibus no segundo turno. O(a) senhor(a) apoia a instalação da CEI? Peço que informe publicamente sua posição, com os motivos. Obrigado(a)." },
+    { rotulo: "Pedir transparência sobre o requerimento", texto: "Olá, vereador(a) {nome}. Sou morador(a) de Salvador e acompanho o requerimento de instalação de CEI sobre a frota de ônibus no segundo turno. Peço que o(a) senhor(a) apoie a divulgação pública do número, da autoria, do texto e do andamento do requerimento, para que a população possa acompanhar. Obrigado(a)." },
+    { rotulo: "Escrever minha própria mensagem", texto: "" }
+  ];
+}
+const MAIL_SUBJECT = "Cobrança cidadã: requerimento de CEI sobre a frota de ônibus";
+let dlg, cur = { p: null, ch: "ig", models: [] };
+
+function ensureDialog() {
+  if (dlg) return dlg;
+  dlg = document.createElement("dialog");
+  dlg.className = "cobrar-dialog";
+  dlg.setAttribute("aria-labelledby", "cdTitle");
+  dlg.innerHTML = `<button type="button" class="cd-close" id="cdClose" aria-label="Fechar">×</button>
+  <div class="cd-head"><div id="cdPhoto"></div><div><h3 id="cdTitle"></h3><span class="party" id="cdParty"></span></div></div>
+  <div id="cdSig"></div>
+  <fieldset class="cd-q"><legend>O que você quer cobrar?</legend><div id="cdOptions"></div></fieldset>
+  <div class="cd-tabs" role="group" aria-label="Canal de envio">
+    <button type="button" data-ch="ig" aria-pressed="true">Instagram</button>
+    <button type="button" data-ch="mail" aria-pressed="false">E-mail</button>
+  </div>
+  <div class="cd-preview"><div class="cd-meta" id="cdMeta"></div>
+    <label class="sr-only" for="cdText">Texto da mensagem (editável)</label>
+    <textarea id="cdText" rows="8"></textarea>
+    <div class="cd-count" id="cdCount" aria-live="off"></div></div>
+  <p class="cd-hint" id="cdHint"></p>
+  <div class="cd-actions"><button type="button" class="btn ghost" id="cdCopy">Copiar texto</button>
+    <a class="btn btn-instagram" id="cdIg" target="_blank" rel="noopener noreferrer">Copiar e abrir Instagram</a>
+    <a class="btn" id="cdMail">Abrir e-mail</a></div>
+  <p class="cd-note">Este site não envia a mensagem por você. Mensagem de cidadão não é assinatura nem ato oficial de vereador.</p>`;
+  document.body.append(dlg);
+  const q = id => dlg.querySelector("#" + id);
+  q("cdClose").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  dlg.querySelectorAll(".cd-tabs button").forEach(b => b.addEventListener("click", () => { cur.ch = b.dataset.ch; refreshChannel(); }));
+  q("cdText").addEventListener("input", refreshChannel);
+  q("cdCopy").addEventListener("click", () => copyText(q("cdText").value.trim() || ""));
+  q("cdIg").addEventListener("click", () => { copyText(q("cdText").value.trim()); });
+  return dlg;
+}
+
+function refreshChannel() {
+  const q = id => dlg.querySelector("#" + id), p = cur.p, txt = q("cdText").value;
+  const hasMail = !!p.email;
+  if (cur.ch === "mail" && !hasMail) cur.ch = "ig";
+  dlg.querySelectorAll(".cd-tabs button").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.ch === cur.ch));
+    if (b.dataset.ch === "mail") { b.disabled = !hasMail; b.title = hasMail ? "" : "E-mail institucional não informado pela Câmara"; }
+  });
+  const ig = cur.ch === "ig";
+  q("cdMeta").textContent = ig ? `Mensagem direta para @${p.instagram}` : `Para: ${p.email}  ·  Assunto: ${MAIL_SUBJECT}`;
+  q("cdHint").textContent = ig
+    ? "O Instagram não abre a conversa com texto pronto: o texto é copiado, e você cola no direct ou em um comentário do perfil."
+    : "O e-mail abre no seu aplicativo já preenchido. Revise antes de enviar; o e-mail institucional fica registrado.";
+  q("cdCount").textContent = `${txt.length} caracteres`;
+  const igA = q("cdIg"), mailA = q("cdMail");
+  igA.hidden = !ig; mailA.hidden = ig;
+  igA.href = `https://www.instagram.com/${encodeURIComponent(p.instagram)}/`;
+  igA.setAttribute("aria-label", `Copiar texto e abrir Instagram de ${p.nome} (nova aba)`);
+  if (hasMail) mailA.href = `mailto:${p.email}?subject=${encodeURIComponent(MAIL_SUBJECT)}&body=${encodeURIComponent(txt)}`;
+}
+
+function openCobranca(p) {
+  ensureDialog();
+  const q = id => dlg.querySelector("#" + id);
+  cur = { p, ch: "ig", models: buildModels(state.campaign, p) };
+  q("cdTitle").textContent = `Cobrar ${p.nome}`;
+  q("cdParty").textContent = p.partido;
+  const ph = q("cdPhoto"); ph.replaceChildren();
+  const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("pt-BR");
+  const fb = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
+  const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
+  if (src) { const im = document.createElement("img"); im.src = src; im.alt = ""; im.width = 60; im.height = 60; im.addEventListener("error", () => im.replaceWith(fb()), { once: true }); ph.append(im); } else ph.append(fb());
+  q("cdSig").replaceChildren(sigBadge(p));
+  const opts = q("cdOptions"); opts.replaceChildren();
+  cur.models.forEach((m, i) => {
+    const lab = el("label", "cd-opt"), r = document.createElement("input");
+    r.type = "radio"; r.name = "cdModel"; r.value = i; r.checked = i === 0;
+    r.addEventListener("change", () => {
+      const t = q("cdText"); t.value = (m.texto || "").replaceAll("{nome}", p.nome);
+      if (!m.texto) { t.placeholder = "Escreva sua mensagem com respeito e baseada em fatos…"; t.focus(); }
+      refreshChannel();
+    });
+    lab.append(r, document.createTextNode(" " + m.rotulo)); opts.append(lab);
+  });
+  q("cdText").value = (cur.models[0].texto || "").replaceAll("{nome}", p.nome);
+  refreshChannel();
+  if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
 }
 
 async function init() {
@@ -155,59 +264,18 @@ async function init() {
     });
     const link = safeUrl(v.fonteUrl);
     $("sourceLine").textContent = `Fonte dos nomes, partidos e e-mails: ${v.fonte}${link ? " (" + link + ")" : ""}. Conferido em ${v.conferidoEm}. Confirme sempre no site oficial.`;
-    
-    // ATIVA O CONTADOR PRINCIPAL DE ASSINATURAS
-    atualizarContadorAssinaturas(state.people);
-    
     renderCouncilors();
+    updateCounter();
   } catch (e) {
     $("campanha").replaceChildren(el("div", "error", "Não foi possível carregar os dados. Se abriu o arquivo direto no navegador, use um servidor local (extensão Live Server do VS Code) ou acesse o site publicado."));
   }
 }
 
-// ARMAZENA OS LISTENERS CORRETAMENTE COM TRATAMENTO DE SEGURANÇA
-["input", "change"].forEach(ev => { 
-  if($("searchName")) $("searchName").addEventListener(ev, renderCouncilors); 
-  if($("partyFilter")) $("partyFilter").addEventListener(ev, renderCouncilors);
+["input", "change"].forEach(ev => { $("searchName").addEventListener(ev, renderCouncilors); $("partyFilter").addEventListener(ev, renderCouncilors); $("sortOrder").addEventListener(ev, renderCouncilors); });
+$("resetMessage").addEventListener("click", () => { if (state.campaign) { $("customMessage").value = state.campaign.mensagem; showToast("Texto sugerido restaurado."); } });
+$("copyCustom").addEventListener("click", () => {
+  const m = $("customMessage").value.trim();
+  if (!m) return showToast("Escreva uma mensagem antes de copiar.");
+  copyText(m.replaceAll("{nome}", "vereador(a)"));
 });
-if($("sortOrder")) $("sortOrder").addEventListener("change", renderCouncilors);
-
-// FUNÇÕES DE LÓGICA DO CONTADOR E STATUS
-function atualizarContadorAssinaturas(vereadores) {
-  const contador = document.getElementById("signatureCount");
-  const barra = document.getElementById("signatureProgressBar");
-  const progresso = document.getElementById("signatureProgress");
-
-  if (!contador || !barra || !progresso || !Array.isArray(vereadores)) return;
-
-  const total = vereadores.length;
-  const assinaturas = vereadores.filter(v => v.assinaturaConfirmada === true).length;
-  const percentual = total > 0 ? (assinaturas / total) * 100 : 0;
-
-  contador.textContent = `${assinaturas} de ${total}`;
-  barra.style.width = `${percentual}%`;
-  progresso.setAttribute("aria-valuenow", percentual.toFixed(1).toString());
-}
-
-function criarStatusAssinatura(vereador) {
-  const status = document.createElement("div");
-
-  if (vereador.assinaturaConfirmada === true) {
-    status.className = "signature-status confirmed";
-    status.textContent = "✓ Assinatura confirmada";
-
-    if (vereador.dataAssinatura) {
-      const data = document.createElement("small");
-      const partes = vereador.dataAssinatura.split("-");
-      data.textContent = partes.length === 3
-        ? ` Data: ${partes[2]}/${partes[1]}/${partes[0]}`
-        : ` Data: ${vereador.dataAssinatura}`;
-      status.appendChild(data);
-    }
-  } else {
-    status.className = "signature-status pending";
-status.textContent = "◷ Assinatura não confirmada";
-}
-return status;
-}
 init();

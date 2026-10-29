@@ -232,3 +232,31 @@ a:focus-visible, button:focus-visible { outline: 3px solid #fbbf24; outline-offs
   font-size: 0.72rem;
   font-weight: 400;
 }
+/* ===== Janela "Cobrar vereador" + status de assinatura (acrescentar ao final do styles.css) ===== */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.signature-status { flex-direction: column; align-items: flex-start; gap: 0; margin: 0 0 12px; }
+.signature-status a { color: inherit; }
+.cobrar-dialog { width: min(560px, calc(100% - 24px)); max-height: calc(100dvh - 24px); overflow-y: auto; padding: 22px; border: 0; border-radius: 18px; background: #fff; color: var(--text); box-shadow: 0 24px 60px rgba(15,23,42,.35); }
+.cobrar-dialog::backdrop { background: rgba(11,31,58,.6); }
+.cd-close { position: absolute; top: 10px; right: 12px; width: 38px; height: 38px; border: 0; border-radius: 10px; background: #f1f5f9; font-size: 1.4rem; cursor: pointer; }
+.cd-head { display: flex; align-items: center; gap: 12px; margin: 0 40px 12px 0; }
+.cd-head h3 { margin: 0; font-size: 1.15rem; }
+.cd-head .avatar, .cd-head img { width: 60px; height: 60px; margin: 0; border-radius: 14px; flex: none; object-fit: cover; }
+.cd-q { border: 0; padding: 0; margin: 0 0 14px; }
+.cd-q legend { font-weight: 800; margin-bottom: 8px; }
+.cd-opt { display: flex; gap: 8px; align-items: flex-start; padding: 8px 4px; cursor: pointer; font-size: .95rem; }
+.cd-opt input { width: auto; margin-top: 4px; }
+.cd-tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+.cd-tabs button { flex: 1; padding: 9px; border: 1px solid var(--border); border-radius: 10px; background: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.cd-tabs button[aria-pressed="true"] { background: #eff6ff; border-color: #60a5fa; color: #174ea6; }
+.cd-tabs button:disabled { opacity: .5; cursor: not-allowed; }
+.cd-preview { background: #f1f5f9; border-radius: 14px; padding: 12px; }
+.cd-meta { font-size: .8rem; font-weight: 700; color: var(--muted); margin-bottom: 8px; word-break: break-word; }
+.cd-preview textarea { min-height: 150px; resize: vertical; border-radius: 14px; }
+.cd-count { text-align: right; font-size: .75rem; color: var(--muted); margin-top: 4px; }
+.cd-hint, .cd-note { font-size: .8rem; color: var(--muted); margin: 10px 0 0; }
+.cd-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.cd-actions .btn { flex: 1 1 160px; }
+.cd-actions [hidden] { display: none !important; }
+.btn-instagram svg { flex: none; }
+.signature-status { margin: 0 0 12px; }

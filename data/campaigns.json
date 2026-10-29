@@ -6,17 +6,58 @@
       "titulo": "Instalação de Comissão Especial de Inquérito sobre a redução da frota de ônibus no 2º turno",
       "status": "Em acompanhamento",
       "resumo": "No segundo turno das eleições de 2026 (25/10), houve denúncias de redução da frota de ônibus em Salvador. A Justiça Eleitoral determinou o restabelecimento da frota e mandou apurar os fatos; a Prefeitura nega ter orientado a redução. Esta campanha cobra dos vereadores posicionamento público sobre o requerimento de instalação de CEI, que cabe à Câmara apreciar como órgão fiscalizador do Executivo.",
-      "aviso": "Existe requerimento para instalação de CEI. Número, autoria, data e assinaturas só serão publicados aqui após confirmação por documento oficial. Enviar mensagem por este site não equivale a assinar o requerimento nem comprova adesão de qualquer vereador. Os fatos abaixo são relatos de veículos de imprensa; nenhuma decisão aponta culpa do prefeito.",
-      "requerimento": { "numero": "", "documento_url": "", "situacao": "" },
+      "aviso": "O requerimento de CEI foi protocolado em 27/10/2026 (segundo a imprensa); o documento oficial ainda não foi publicado e será incluído aqui quando houver cópia oficial. O contador mostra apenas vereadores identificados pela imprensa como signatários (a data é a do protocolo); a imprensa chegou a relatar 10 assinaturas, mas só 8 nomes foram divulgados. A meta de 14 assinaturas (um terço da Câmara) é a citada nas reportagens: confirme no Regimento Interno. Mensagens enviadas por cidadãos por este site não são assinaturas nem comprovam adesão de qualquer vereador. Nenhuma decisão aponta culpa do prefeito; a Prefeitura nega ter orientado a redução.",
+      "requerimento": {
+        "numero": "",
+        "documento_url": "",
+        "situacao": "Protocolado em 27/10/2026 por vereadores da oposição e entregue ao presidente da Câmara, Carlos Muniz. Aguarda as assinaturas necessárias (um terço dos 43 vereadores)."
+      },
       "linhaDoTempo": [
-        { "data": "25/10/2026", "texto": "TRE-BA determina o restabelecimento integral da frota, com multa de R$ 1 milhão por hora de descumprimento, após denúncia da Federação Brasil da Esperança.", "fonte": "Mídiamax", "url": "https://midiamax.com.br/brasil/2026/tre-ba-manda-restabelecer-frota-onibus-salvador-fixa-multa-r-1-milhao-hora-descumprimento/" },
-        { "data": "25/10/2026", "texto": "Prefeito Bruno Reis nega ter orientado redução da frota e atribui os atrasos à retirada de adesivos de propaganda dos ônibus.", "fonte": "SBT News", "url": "https://sbtnews.sbt.com.br/noticia/politica/retirar-adesivos-atrasou-onibus-diz-prefeito-de-salvador-1" },
-        { "data": "25/10/2026", "texto": "Despacho do TRE-BA aponta evidências, em tese, de violação aos arts. 297, 304 e 347 do Código Eleitoral e determina a prisão do secretário municipal de Mobilidade.", "fonte": "A Gazeta", "url": "https://www.agazeta.com.br/brasil/justica-eleitoral-manda-pf-prender-secretario-de-salvador-por-retencao-de-onibus-1026" },
-        { "data": "26/10/2026", "texto": "TRE-BA revoga a ordem de prisão, mantém a apuração e determina que prefeitura, secretaria e concessionárias apresentem documentos em até 48 horas. A revogação não significa absolvição.", "fonte": "Diario de Pernambuco", "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727662-tre-ba-revoga-prisao-de-secretario-de-salvador-mas-mantem-investigacao-sobre-onibus.html" },
-        { "data": "Data a confirmar", "texto": "TRE-BA mantém a multa e envia cópia dos autos à Procuradoria Regional Eleitoral e à Polícia Federal para apuração de responsabilidade criminal.", "fonte": "A Tarde", "url": "https://atarde.com.br/politica/tre-mantem-multa-e-investigacao-da-pf-na-reducao-de-frota-em-salvador-1407179" }
+        {
+          "data": "25/10/2026",
+          "texto": "TRE-BA determina o restabelecimento integral da frota, com multa de R$ 1 milhão por hora de descumprimento, após denúncia da Federação Brasil da Esperança.",
+          "fonte": "Mídiamax",
+          "url": "https://midiamax.com.br/brasil/2026/tre-ba-manda-restabelecer-frota-onibus-salvador-fixa-multa-r-1-milhao-hora-descumprimento/"
+        },
+        {
+          "data": "25/10/2026",
+          "texto": "Prefeito Bruno Reis nega ter orientado redução da frota e atribui os atrasos à retirada de adesivos de propaganda dos ônibus.",
+          "fonte": "SBT News",
+          "url": "https://sbtnews.sbt.com.br/noticia/politica/retirar-adesivos-atrasou-onibus-diz-prefeito-de-salvador-1"
+        },
+        {
+          "data": "25/10/2026",
+          "texto": "Despacho do TRE-BA aponta evidências, em tese, de violação aos arts. 297, 304 e 347 do Código Eleitoral e determina a prisão do secretário municipal de Mobilidade.",
+          "fonte": "A Gazeta",
+          "url": "https://www.agazeta.com.br/brasil/justica-eleitoral-manda-pf-prender-secretario-de-salvador-por-retencao-de-onibus-1026"
+        },
+        {
+          "data": "26/10/2026",
+          "texto": "TRE-BA revoga a ordem de prisão, mantém a apuração e determina que prefeitura, secretaria e concessionárias apresentem documentos em até 48 horas. A revogação não significa absolvição.",
+          "fonte": "Diario de Pernambuco",
+          "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727662-tre-ba-revoga-prisao-de-secretario-de-salvador-mas-mantem-investigacao-sobre-onibus.html"
+        },
+        {
+          "data": "27/10/2026",
+          "texto": "Vereadores da oposição protocolam requerimento de CEI e o entregam ao presidente da Câmara. Segundo o Regimento citado pela imprensa, a CEI precisa ser requerida por um terço dos vereadores e aprovada em plenário.",
+          "fonte": "BNews",
+          "url": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html"
+        },
+        {
+          "data": "Data a confirmar",
+          "texto": "TRE-BA mantém a multa e envia cópia dos autos à Procuradoria Regional Eleitoral e à Polícia Federal para apuração de responsabilidade criminal.",
+          "fonte": "A Tarde",
+          "url": "https://atarde.com.br/politica/tre-mantem-multa-e-investigacao-da-pf-na-reducao-de-frota-em-salvador-1407179"
+        }
       ],
       "documentos": [],
-      "mensagem": "Olá, vereador(a) {nome}. Sou morador(a) de Salvador e escrevo como cidadão(ã). No segundo turno das eleições (25/10), o TRE-BA determinou o restabelecimento integral da frota de ônibus e mandou apurar a redução da circulação, apontando indícios, em tese, de violação ao Código Eleitoral. A apuração segue em curso e a Prefeitura nega ter orientado a redução. Cabe à Câmara fiscalizar o Executivo. Já existe requerimento para instalação de Comissão Especial de Inquérito: peço que o(a) senhor(a) o apoie e assine, garantidos o contraditório e a ampla defesa, e informe publicamente sua posição. Aguardo resposta."
+      "mensagem": "Olá, vereador(a) {nome}. Sou morador(a) de Salvador e escrevo como cidadão(ã). No segundo turno das eleições (25/10), o TRE-BA determinou o restabelecimento integral da frota de ônibus e mandou apurar a redução da circulação, apontando indícios, em tese, de violação ao Código Eleitoral. A apuração segue em curso e a Prefeitura nega ter orientado a redução. Cabe à Câmara fiscalizar o Executivo. Em 27/10 foi protocolado requerimento de Comissão Especial de Inquérito, que precisa de 14 assinaturas: peço que o(a) senhor(a) o assine, garantidos o contraditório e a ampla defesa, e informe publicamente sua posição. Aguardo resposta.",
+      "assinaturas": {
+        "necessarias": 14,
+        "fonteNome": "BNews",
+        "fonteUrl": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html",
+        "atualizadoEm": "29/10/2026"
+      }
     }
   ]
 }
