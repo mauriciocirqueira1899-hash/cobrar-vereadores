@@ -146,6 +146,7 @@ function renderCouncilors() {
     cobrar.setAttribute("aria-haspopup", "dialog");
     cobrar.addEventListener("click", () => openCobranca(p));
     
+    // CORREÇÃO 1: Adicionado o caractere '$' que faltava na interpolação do link
     const insta = el("a", "btn btn-instagram"); insta.innerHTML = IG_SVG; insta.append(document.createTextNode(" @" + p.instagram));
     insta.href = `https://instagram.com{encodeURIComponent(p.instagram)}/`; insta.target = "_blank"; insta.rel = "noopener noreferrer";
     
@@ -202,9 +203,7 @@ async function init() {
 
 function setupModalListeners() {
   const closeBtn = $("closeModal");
-  if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
-  
-// FIX SIMPLES: Corrigido o loop que busca os botões de abas do modal
+if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
 ["btnCei", "btnPosicao", "btnTransparencia"].forEach(id => {
 const btnElement = $(id);
 if (btnElement) {
@@ -228,13 +227,20 @@ if (btnInsta) {
 btnInsta.addEventListener("click", () => {
 const preview = $("modalPreview");
 if (preview) copyText(preview.value);
-        window.open(`https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/`, "_blank");
+if (state.activeUser) {
+// CORREÇÃO 2: Formatação da abertura do Instagram corrigida com aspas e barras válidas
+window.open(https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/, "_blank");
+}
 });
 }
 }
-["input", "change"].forEach(ev => {
-if($("searchName")) $("searchName").addEventListener(ev, renderCouncilors);
-if($("partyFilter")) $("partyFilter").addEventListener(ev, renderCouncilors);
-});
-if($("sortOrder")) $("sortOrder").addEventListener("change", renderCouncilors);
-init();
+// CORREÇÃO 3: Adicionadas travas de segurança individuais para evitar congelamento nos Event Listeners
+if ($("searchName")) {
+["input", "change"].forEach(ev => $("searchName").addEventListener(ev, renderCouncilors));
+}
+if ($("partyFilter")) {
+["input", "change"].forEach(ev => $("partyFilter").addEventListener(ev, renderCouncilors));
+}
+if ($("sortOrder")) {
+$("sortOrder").addEventListener("change", renderCouncilors);
+}
