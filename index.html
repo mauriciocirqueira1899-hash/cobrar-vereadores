@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cobre Seu Vereador | Salvador</title>
+  <meta name="description" content="Plataforma cidadã e apartidária para acompanhar pautas públicas e cobrar posicionamentos dos vereadores de Salvador.">
+  <meta property="og:title" content="Cobre Seu Vereador | Salvador">
+  <meta property="og:description" content="Iniciativa cidadã e apartidária: conheça as pautas e cobre posicionamento dos vereadores de Salvador.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%A3%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#campanha">Pular para o conteúdo</a>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#inicio">COBRE SEU <span>VEREADOR</span></a>
+      <nav aria-label="Navegação principal">
+        <a href="#campanha">Campanha</a><a href="#vereadores">Vereadores</a><a href="#como-funciona">Como funciona</a><a href="#participar">Participar</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Participação cidadã em Salvador</span>
+        <h1>Fiscalizar também é um dever de quem representa.</h1>
+        <p>Encontre os canais públicos dos vereadores de Salvador, cobre posicionamentos com respeito e acompanhe pautas de interesse coletivo. Iniciativa apartidária, com informação verificável e fonte em cada fato.</p>
+        <a class="btn" href="#campanha">Conheça a campanha atual ↓</a>
+      </div>
+      <aside class="hero-card">
+        <h2>O que este site faz?</h2>
+        <p>Organiza campanhas públicas e facilita o contato com os vereadores. Não é um canal oficial da Câmara Municipal, não tem vínculo com partidos e não substitui protocolos, assinaturas ou documentos oficiais.</p>
+      </aside>
+    </div>
+  </div>
+
+  <main class="container">
+    <section id="campanha" aria-live="polite"><p class="results-line">Carregando campanha…</p></section>
+
+    <section id="vereadores">
+      <div class="section-heading"><div>
+        <h2>Encontre um vereador</h2>
+        <p>Pesquise por nome ou partido. Envie sua cobrança por e-mail institucional (fica registrada) ou pelo Instagram.</p>
+      </div></div>
+      <div class="filters">
+        <input id="searchName" type="search" placeholder="Digite o nome do vereador..." aria-label="Pesquisar vereador pelo nome">
+        <select id="partyFilter" aria-label="Filtrar por partido"><option value="">Todos os partidos</option></select>
+        <select id="sortOrder" aria-label="Ordenar vereadores"><option value="az">Ordem alfabética</option><option value="za">Ordem inversa</option></select>
+      </div>
+      <p class="results-line" id="resultsLine" aria-live="polite"></p>
+      <div class="council-grid" id="councilGrid"></div>
+      <p class="results-line" id="sourceLine"></p>
+    </section>
+
+    <section id="como-funciona">
+      <div class="section-heading"><div>
+        <h2>Como funciona</h2>
+        <p>Participar sem confundir mobilização cidadã com procedimentos oficiais.</p>
+      </div></div>
+      <div class="how-grid">
+        <article class="how-card"><span class="step">1</span><h3>Escolha um vereador</h3><p>Use a busca e abra o card do representante.</p></article>
+        <article class="how-card"><span class="step">2</span><h3>Revise a mensagem</h3><p>O texto sugerido já traz o nome do vereador. Você pode editá-lo no campo abaixo.</p></article>
+        <article class="how-card"><span class="step">3</span><h3>Envie por e-mail ou Instagram</h3><p>O e-mail abre já preenchido. No Instagram, cole a mensagem copiada e envie por conta própria.</p></article>
+      </div>
+    </section>
+
+    <section id="participar">
+      <div class="participate">
+        <div>
+          <h2>Edite sua cobrança</h2>
+          <p>O texto ao lado é usado nos botões de todos os cards. Mantenha o tom respeitoso e baseado em fatos. Use <strong>{nome}</strong> para inserir o nome do vereador automaticamente.</p>
+          <p class="privacy-note">Este site não envia nem armazena sua mensagem. A cópia acontece no seu dispositivo. Mensagens enviadas por cidadãos não são assinaturas nem atos oficiais de vereadores.</p>
+        </div>
+        <div>
+          <label for="customMessage">Sua mensagem</label>
+          <textarea id="customMessage" rows="9"></textarea>
+          <button class="btn" id="resetMessage" type="button">Restaurar texto sugerido</button>
+          <button class="btn" id="copyCustom" type="button">Copiar minha mensagem</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div><strong>Cobre Seu Vereador</strong><br>Iniciativa independente e apartidária de participação cidadã.</div>
+      <div>Confira informações e documentos em fontes oficiais antes de compartilhar.<br>Este site não representa a Câmara Municipal de Salvador.</div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
