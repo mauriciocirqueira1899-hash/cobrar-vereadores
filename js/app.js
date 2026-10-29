@@ -129,7 +129,7 @@ function renderCouncilors() {
   list.forEach(p => {
     const card = el("article", "council-card");
     const head = el("div", "card-head");
-    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("pt-BR");
+    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w).join("").toLocaleUpperCase("pt-BR");
     const fallback = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
     const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
     if (src) {
@@ -151,7 +151,7 @@ function renderCouncilors() {
     
     actions.append(cobrar, insta);
     card.append(head, sigBadge(p), actions);
-    grid.append(card);
+    grid.append(card); // LINHA CORRIGIDA AQUI (Sem loops ocultos)
   });
 }
 
@@ -203,7 +203,6 @@ async function init() {
 function setupModalListeners() {
   const closeBtn = $("closeModal");
   if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
-  
 ["btnCei", "btnPosicao", "btnTransparencia"].forEach(id => {
 const btn = $(id);
 if (btn) {
@@ -222,20 +221,3 @@ const preview = $("modalPreview");
 if (preview) copyText(preview.value);
 });
 }
-const btnInsta = $("btnModalInstagram");
-if (btnInsta) {
-btnInsta.addEventListener("click", () => {
-const preview = $("modalPreview");
-if (preview) copyText(preview.value);
-if (state.activeUser) {
-window.open(https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/, "_blank");
-}
-});
-}
-}
-["input", "change"].forEach(ev => {
-if($("searchName")) $("searchName").addEventListener(ev, renderCouncilors);
-if($("partyFilter")) $("partyFilter").addEventListener(ev, renderCouncilors);
-});
-if($("sortOrder")) $("sortOrder").addEventListener("change", renderCouncilors);
-init();
