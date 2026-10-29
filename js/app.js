@@ -44,7 +44,7 @@ function renderCampaign(c) {
   const top = el("div", "campaign-top"); const box = el("div");
   const actions = el("div", "campaign-actions");
   const b1 = el("a", "btn", "Cobrar um vereador"); b1.href = "#vereadores";
-  const b2 = el("a", "btn secondary", "Consultar Câmara Municipal"); b2.href = "https://www.cms.ba.gov.br/vereadores"; b2.target = "_blank"; b2.rel = "noopener noreferrer";
+  const b2 = el("a", "btn secondary", "Consultar Câmara Municipal"); b2.href = "https://cms.ba.gov.br"; b2.target = "_blank"; b2.rel = "noopener noreferrer";
   actions.append(b1, b2);
   box.append(el("span", "status", c.status), el("h3", "", c.titulo), el("p", "", c.resumo), actions);
   top.append(box);
@@ -58,7 +58,7 @@ function renderCampaign(c) {
     a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer"; body.append(a);
     if (r.situacao) body.append(el("p", "docs-empty", "Situação: " + r.situacao));
   } else {
-    body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmação por fonte oficial."));
+    body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmation por fonte oficial."));
   }
 
   body.append(el("h4", "", "Linha do tempo (com fontes)"));
@@ -113,16 +113,16 @@ function renderCouncilors() {
     const info = el("div"); info.append(el("h3", "", p.nome), el("span", "party", p.partido));
     head.append(info);
 
-    // INSERÇÃO DO STATUS DA ASSINATURA CONFORME PREPARADO NO CSS
+    // ADICIONA O SELO DE STATUS DA ASSINATURA DENTRO DO CARD
     const seloAssinatura = criarStatusAssinatura(p);
-    head.append(seloAssinatura);
+    card.append(seloAssinatura);
 
     const actions = el("div", "card-actions");
     const copy = el("button", "btn secondary", "Copiar cobrança"); copy.type = "button";
     copy.addEventListener("click", () => copyText(messageFor(p)));
     
     const insta = el("a", "btn btn-instagram", "");
-    insta.href = `https://www.instagram.com/${encodeURIComponent(p.instagram)}/`;
+    insta.href = `https://instagram.com{encodeURIComponent(p.instagram)}/`;
     insta.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @${p.instagram}`;
     insta.target = "_blank"; insta.rel = "noopener noreferrer"; insta.setAttribute("aria-label", `Abrir Instagram de ${p.nome} (nova aba)`);
     
@@ -156,7 +156,7 @@ async function init() {
     const link = safeUrl(v.fonteUrl);
     $("sourceLine").textContent = `Fonte dos nomes, partidos e e-mails: ${v.fonte}${link ? " (" + link + ")" : ""}. Conferido em ${v.conferidoEm}. Confirme sempre no site oficial.`;
     
-    // ATIVAÇÃO DO CONTADOR NO CARREGAMENTO DA PÁGINA
+    // ATIVA O CONTADOR PRINCIPAL DE ASSINATURAS
     atualizarContadorAssinaturas(state.people);
     
     renderCouncilors();
@@ -165,14 +165,14 @@ async function init() {
   }
 }
 
-// INICIALIZAÇÃO DOS EVENTOS LISTENER RESTANTES DO ARQUIVO ORIGINAL
+// ARMAZENA OS LISTENERS CORRETAMENTE COM TRATAMENTO DE SEGURANÇA
 ["input", "change"].forEach(ev => { 
   if($("searchName")) $("searchName").addEventListener(ev, renderCouncilors); 
   if($("partyFilter")) $("partyFilter").addEventListener(ev, renderCouncilors);
 });
 if($("sortOrder")) $("sortOrder").addEventListener("change", renderCouncilors);
 
-// FUNÇÕES DE LOGICA DO CONTADOR FLUTUANTE E DE STATUS
+// FUNÇÕES DE LÓGICA DO CONTADOR E STATUS
 function atualizarContadorAssinaturas(vereadores) {
   const contador = document.getElementById("signatureCount");
   const barra = document.getElementById("signatureProgressBar");
@@ -202,3 +202,12 @@ function criarStatusAssinatura(vereador) {
       data.textContent = partes.length === 3
         ? ` Data: ${partes[2]}/${partes[1]}/${partes[0]}`
         : ` Data: ${vereador.dataAssinatura}`;
+      status.appendChild(data);
+    }
+  } else {
+    status.className = "signature-status pending";
+status.textContent = "◷ Assinatura não confirmada";
+}
+return status;
+}
+init();
