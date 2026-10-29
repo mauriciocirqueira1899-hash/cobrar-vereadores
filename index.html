@@ -92,6 +92,34 @@
     </div>
   </footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <aside
+  id="signatureCounter"
+  class="signature-counter"
+  aria-live="polite"
+  aria-label="Contagem de assinaturas confirmadas"
+>
+  <div class="signature-counter-icon" aria-hidden="true">✓</div>
+
+  <div class="signature-counter-content">
+    <span class="signature-counter-label">
+      Assinaturas confirmadas
+    </span>
+
+    <strong id="signatureCount">0 de 0</strong>
+
+    <div
+      class="signature-progress"
+      role="progressbar"
+      aria-label="Percentual de assinaturas confirmadas"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      id="signatureProgress"
+    >
+      <div id="signatureProgressBar"></div>
+    </div>
+  </div>
+</aside>
   <script src="js/app.js" defer></script>
 </body>
 </html>

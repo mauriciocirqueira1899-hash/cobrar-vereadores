@@ -165,3 +165,65 @@ $("copyCustom").addEventListener("click", () => {
   copyText(m.replaceAll("{nome}", "vereador(a)"));
 });
 init();
+
+/**
+ * Atualiza o contador com base na lista completa de vereadores.
+ * Não use apenas os vereadores filtrados pela pesquisa.
+ */
+function atualizarContadorAssinaturas(vereadores) {
+  const contador = document.getElementById("signatureCount");
+  const barra = document.getElementById("signatureProgressBar");
+  const progresso = document.getElementById("signatureProgress");
+
+  if (!contador || !barra || !progresso || !Array.isArray(vereadores)) {
+    return;
+  }
+
+  const total = vereadores.length;
+
+  const assinaturas = vereadores.filter(
+    vereador => vereador.assinaturaConfirmada === true
+  ).length;
+
+  const percentual = total > 0
+    ? (assinaturas / total) * 100
+    : 0;
+
+  contador.textContent = `${assinaturas} de ${total}`;
+
+  barra.style.width = `${percentual}%`;
+
+  progresso.setAttribute(
+    "aria-valuenow",
+    percentual.toFixed(1)
+  );
+}
+
+/**
+ * Cria o selo que aparece no card de cada vereador.
+ */
+function criarStatusAssinatura(vereador) {
+  const status = document.createElement("div");
+
+  if (vereador.assinaturaConfirmada === true) {
+    status.className = "signature-status confirmed";
+    status.textContent = "✓ Assinatura confirmada";
+
+    if (vereador.dataAssinatura) {
+      const data = document.createElement("small");
+
+      const partes = vereador.dataAssinatura.split("-");
+
+      data.textContent = partes.length === 3
+        ? `Data: ${partes[2]}/${partes[1]}/${partes[0]}`
+        : `Data: ${vereador.dataAssinatura}`;
+
+      status.appendChild(data);
+    }
+  } else {
+    status.className = "signature-status pending";
+    status.textContent = "◷ Assinatura não confirmada";
+  }
+
+  return status;
+}

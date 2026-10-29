@@ -120,3 +120,115 @@ a:focus-visible, button:focus-visible { outline: 3px solid #fbbf24; outline-offs
   color: #fff !important;
   transform: translateY(-1px);
 }
+
+/* Contador flutuante de assinaturas */
+.signature-counter {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(330px, calc(100vw - 32px));
+  padding: 16px;
+  color: #182230;
+  background: #ffffff;
+  border: 1px solid #dbe4f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.18);
+}
+
+.signature-counter-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #e8f1ff;
+  color: #155eef;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.signature-counter-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.signature-counter-label {
+  display: block;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.signature-counter-content strong {
+  display: block;
+  margin: 2px 0 8px;
+  color: #0b1f3a;
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.signature-progress {
+  height: 7px;
+  overflow: hidden;
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+#signatureProgressBar {
+  width: 0%;
+  height: 100%;
+  background: #155eef;
+  border-radius: inherit;
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 600px) {
+  .signature-counter {
+    right: 12px;
+    bottom: 12px;
+    width: min(290px, calc(100vw - 24px));
+    padding: 12px;
+  }
+
+  .signature-counter-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .signature-counter-content strong {
+    font-size: 1.25rem;
+  }
+}
+
+/* Status da assinatura nos cards */
+.signature-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.signature-status.confirmed {
+  color: #067647;
+  background: #ecfdf3;
+}
+
+.signature-status.pending {
+  color: #8a4b08;
+  background: #fff7e6;
+}
+
+.signature-status small {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 400;
+}

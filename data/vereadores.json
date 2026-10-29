@@ -1,50 +1,395 @@
+
 {
   "fonte": "Câmara Municipal de Salvador, 20ª Legislatura (2025-2028)",
   "fonteUrl": "https://www.cms.ba.gov.br/vereadores",
   "conferidoEm": "2026-10-28",
   "vereadores": [
-    {"nome":"Aladilce Souza","partido":"PCdoB","email":"aladilce@cms.ba.gov.br","instagram":"aladilce.souza","foto":"https://www.cms.ba.gov.br/uploads/vereadores/c54c002153de0e8c5ce390d3df8c8c33_1735311795.jpg"},
-    {"nome":"Alex Alemão","partido":"DC","email":"alexalemao@cms.ba.gov.br","instagram":"alexalemaooficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/790e2f9976b29bf0967e6bf4f2490da8_1735309938.jpg"},
-    {"nome":"Alexandre Aleluia","partido":"Novo","email":"aleluia@cms.ba.gov.br","instagram":"alexandrealeluia","foto":"https://www.cms.ba.gov.br/uploads/vereadores/Alexandre_Aleluia_201711174257870323.jpg"},
-    {"nome":"Anderson Ninho","partido":"PSDB","email":"andersonninho@cms.ba.gov.br","instagram":"andersonninhooficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/1130d3f4bee922658eb1347e27ff55f3_1612796872.jpg"},
-    {"nome":"André Fraga","partido":"PV","email":"andrefraga@cms.ba.gov.br","instagram":"euandrefraga","foto":"https://www.cms.ba.gov.br/uploads/vereadores/bc224f0b34a3a0f7c0b9042fc31eae18_1736783032.jpg"},
-    {"nome":"Beca","partido":"Republicanos","email":"beca@cms.ba.gov.br","instagram":"vereadorbeca","foto":"https://www.cms.ba.gov.br/uploads/vereadores/Beca_foto_PORTAL_2015121071753640301.jpg"},
-    {"nome":"Carlos Kleber","partido":"PSD","email":"carloskleber@cms.ba.gov.br","instagram":"carloskleberc","foto":"https://www.cms.ba.gov.br/uploads/vereadores/727768427b81aaf572184af5248606e3_1785851872.jpg"},
-    {"nome":"Carlos Muniz","partido":"PSDB","email":"carlosmuniz@cms.ba.gov.br","instagram":"carlosmuniz.oficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/799d733c84abf66dcb356ceea410a07e_1683139594.jpg"},
-    {"nome":"Cezar Leite","partido":"PL","email":"cezarleite@cms.ba.gov.br","instagram":"cezarleiteoficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/9af9d4f2b4b7b0f08fbeb001f87e77a5_1735309625.jpg"},
-    {"nome":"Claudio Tinoco","partido":"União","email":"claudiotinoco@cms.ba.gov.br","instagram":"claudiotinoco","foto":"https://www.cms.ba.gov.br/uploads/vereadores/b1e1ec16dbbd572be29e9bebb5becdd0_1736516687.jpg"},
-    {"nome":"Cris Correia","partido":"PSDB","email":"assessoriacriscorreia@cms.ba.gov.br","instagram":"criscorreia.ssa","foto":"https://www.cms.ba.gov.br/uploads/vereadores/622a5e2ae9ba95c553d37d9d49c27118_1736517153.jpg"},
-    {"nome":"Daniel Alves","partido":"PSDB","email":"danielalves@cms.ba.gov.br","instagram":"danielalves.ssa","foto":"https://www.cms.ba.gov.br/uploads/vereadores/80e0aac73e56bbc76132220d1a14ed52_1736518551.jpg"},
-    {"nome":"David Rios","partido":"MDB","email":"drdavidrios@cms.ba.gov.br","instagram":"drdavidrios","foto":"https://www.cms.ba.gov.br/uploads/vereadores/fc5a33a1edbfce6519e15efd1b25edfb_1735308544.jpg"},
-    {"nome":"Débora Santana","partido":"PSDB","email":"deborasantana@cms.ba.gov.br","instagram":"deborasantanaba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/9f7ca46be20128ebfab0facf2c648af7_1736517879.jpg"},
-    {"nome":"Duda Sanches","partido":"PSDB","email":"dudasanches@cms.ba.gov.br","instagram":"dudasanchesba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/6d651f5919efb1dfff2f65c5d5bc2880_1736783399.jpg"},
-    {"nome":"Eliete Paraguassu","partido":"PSOL","email":"gabineteelieteparaguassu@cms.ba.gov.br","instagram":"elieteparaguassuoficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/a253f7f97019cf1a2c74eed3ce23db58_1735309793.jpg"},
-    {"nome":"Fábio Souza","partido":"PRD","email":"fabio.souza@cms.ba.gov.br","instagram":"fabiosouzavereador","foto":"https://www.cms.ba.gov.br/uploads/vereadores/3e80852abcb4c886b8736685dffc3cfb_1736518228.jpg"},
-    {"nome":"Hamilton Assis","partido":"PSOL","email":"gabineteprofessorhamiltonassis@cms.ba.gov.br","instagram":"hamiltonassis","foto":"https://www.cms.ba.gov.br/uploads/vereadores/22ced79030992233449d6c1e0cea47df_1735309882.jpg"},
-    {"nome":"Helio Ferreira","partido":"PCdoB","email":"helioferreira@cms.ba.gov.br","instagram":"helioferreiravereador","foto":"https://www.cms.ba.gov.br/uploads/vereadores/7b7916dd2de56297aa29cccb2bbf48d4_1736523711.jpg"},
-    {"nome":"Ireuda Silva","partido":"Republicanos","email":"ireudasilva@cms.ba.gov.br","instagram":"ireudasilvaoficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/4346ad94c2790cac390e684155a2ecba_1736783678.jpg"},
-    {"nome":"Isabela Sousa","partido":"Cidadania","email":"izabelasousa@cms.ba.gov.br","instagram":"isabelasousaba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/4b2a0ea3017d894b96de7bd4a45729d5_1735308928.jpg"},
-    {"nome":"João Cláudio Bacelar","partido":"Podemos","email":"joaoclaudiobacelar@cms.ba.gov.br","instagram":"bacelarjc","foto":"https://www.cms.ba.gov.br/uploads/vereadores/668426da67b63e07674ea8c2ff286289_1735313477.jpg"},
-    {"nome":"Jorge Araújo","partido":"PP","email":"jorgearaujo@cms.ba.gov.br","instagram":"jorgearaujooficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/c4c0466a651f3c8b6911a1ac164f1879_1735310955.jpg"},
-    {"nome":"Kel Torres","partido":"Republicanos","email":"keltorres@cms.ba.gov.br","instagram":"keltorresoficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/e72d58699e2b0ef6fb64ab80fff4e29c_1735311367.jpg"},
-    {"nome":"Kênio Rezende","partido":"PRD","email":"","instagram":"keniorezende","foto":"https://www.cms.ba.gov.br/uploads/vereadores/733f3d1e7b02f704a80521ed8e9ad70f_1735309141.jpg"},
-    {"nome":"Kiki Bispo","partido":"União","email":"kikibispo@cms.ba.gov.br","instagram":"kikibispooficial","foto":"https://www.cms.ba.gov.br/uploads/vereadores/df986d86710f8bc5e81d572df899f010_1550589137.jpg"},
-    {"nome":"Luiz Carlos","partido":"Republicanos","email":"luizcarlos@cms.ba.gov.br","instagram":"amigoluizcarlos","foto":"https://www.cms.ba.gov.br/uploads/vereadores/ae7a1e9f54c777f16aa36391dfdc013f_1736858053.jpg"},
-    {"nome":"Marcelle Moraes","partido":"União","email":"marcellemoraes@cms.ba.gov.br","instagram":"marcellecmoraes","foto":"https://www.cms.ba.gov.br/uploads/vereadores/af7c60560028236e4abdd5abb7f22d79_1736858292.jpg"},
-    {"nome":"Marcelo Guimarães Neto","partido":"União","email":"contato@marceloguimaraesneto.com.br","instagram":"marceloguimaraesnetoba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/21f201dbabfce0c78e027b5fc9325811_1735309244.jpg"},
-    {"nome":"Marta Rodrigues","partido":"PT","email":"martarodrigues@cms.ba.gov.br","instagram":"martamerepresenta","foto":"https://www.cms.ba.gov.br/uploads/vereadores/b3e6c893288d4eb6ecd2339a8a0afe84_1736862830.jpg"},
-    {"nome":"Maurício Trindade","partido":"PP","email":"mauriciotrindade@cms.ba.gov.br","instagram":"drmauriciotrindade","foto":"https://www.cms.ba.gov.br/uploads/vereadores/8195c457797bd5e81479bf41be59e0fa_1736862990.jpg"},
-    {"nome":"Omarzinho Gordilho","partido":"PDT","email":"omarzinho@cms.ba.gov.br","instagram":"omarzinhoba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/c64c1dc40ade60a3aba8332e10260c93_1735313137.jpg"},
-    {"nome":"Orlando Palhinha","partido":"União","email":"palhinha@cms.ba.gov.br","instagram":"vereadorpalhinha.ba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/5da16aad8a67c6070160b15ef421c3ef_1550589333.jpg"},
-    {"nome":"Paulo Magalhães Júnior","partido":"União","email":"paulomagalhaes@cms.ba.gov.br","instagram":"paulomagalhaes.jr","foto":"https://www.cms.ba.gov.br/uploads/vereadores/86bc54c80f654ef8bb66274febd8f6fe_1736858555.jpg"},
-    {"nome":"Randerson Leal","partido":"Podemos","email":"randersonleal@cms.ba.gov.br","instagram":"randersonleal","foto":"https://www.cms.ba.gov.br/uploads/vereadores/434f3fd22d882b791615dccd0073179b_1751296075.jpg"},
-    {"nome":"Ricardo Almeida","partido":"DC","email":"ricardoalmeida@cms.ba.gov.br","instagram":"ricardoalmeida.ba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/54b41dd07dd1fc2ebbcd3539ca3be702_1736859360.jpg"},
-    {"nome":"Roberta Caires","partido":"Republicanos","email":"robertacaires@cms.ba.gov.br","instagram":"robertacairesba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/9bd68fc85788d86a6a74310eda902afe_1736859638.jpg"},
-    {"nome":"Rodrigo Amaral","partido":"PSDB","email":"rodrigoamaral@cms.ba.gov.br","instagram":"rodrigoamaral.ofc","foto":"https://www.cms.ba.gov.br/uploads/vereadores/434f3fd22d882b791615dccd0073179b_1751296075.jpg"},
-    {"nome":"Sandro Bahiense","partido":"PP","email":"sandrobahiense@cms.ba.gov.br","instagram":"sandrobahiense","foto":"https://www.cms.ba.gov.br/uploads/vereadores/3463ba87bdc01378649630ed94f57eef_1677682218.jpg"},
-    {"nome":"Sandro Filho","partido":"PP","email":"vereadorsandrofilho@cms.ba.gov.br","instagram":"sandrofilhoba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/e6b231fb2b3929775603d68aba761207_1735312182.jpg"},
-    {"nome":"Sidninho","partido":"PP","email":"sidninho@cms.ba.gov.br","instagram":"sidninho","foto":"https://www.cms.ba.gov.br/uploads/vereadores/9e57f78cdc3a5f5052ff53af3df8e6eb_1736860138.jpg"},
-    {"nome":"Sílvio Humberto","partido":"PSB","email":"silviohumberto@cms.ba.gov.br","instagram":"silviohumberto_","foto":"https://www.cms.ba.gov.br/uploads/vereadores/b2fc19323fe826741d0448e2eaaf703d_1736863163.jpg"},
-    {"nome":"Téo Senna","partido":"PSDB","email":"teosenna@cms.ba.gov.br","instagram":"teosennaba","foto":"https://www.cms.ba.gov.br/uploads/vereadores/fb8db03428fa70f7ffbe9b01ce134e84_1736863398.jpg"}
+    {
+      "nome": "Aladilce Souza",
+      "partido": "PCdoB",
+      "email": "aladilce@cms.ba.gov.br",
+      "instagram": "aladilce.souza",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/c54c002153de0e8c5ce390d3df8c8c33_1735311795.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Alex Alemão",
+      "partido": "DC",
+      "email": "alexalemao@cms.ba.gov.br",
+      "instagram": "alexalemaooficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/790e2f9976b29bf0967e6bf4f2490da8_1735309938.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Alexandre Aleluia",
+      "partido": "Novo",
+      "email": "aleluia@cms.ba.gov.br",
+      "instagram": "alexandrealeluia",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/Alexandre_Aleluia_201711174257870323.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Anderson Ninho",
+      "partido": "PSDB",
+      "email": "andersonninho@cms.ba.gov.br",
+      "instagram": "andersonninhooficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/1130d3f4bee922658eb1347e27ff55f3_1612796872.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "André Fraga",
+      "partido": "PV",
+      "email": "andrefraga@cms.ba.gov.br",
+      "instagram": "euandrefraga",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/bc224f0b34a3a0f7c0b9042fc31eae18_1736783032.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Beca",
+      "partido": "Republicanos",
+      "email": "beca@cms.ba.gov.br",
+      "instagram": "vereadorbeca",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/Beca_foto_PORTAL_2015121071753640301.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Carlos Kleber",
+      "partido": "PSD",
+      "email": "carloskleber@cms.ba.gov.br",
+      "instagram": "carloskleberc",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/727768427b81aaf572184af5248606e3_1785851872.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Carlos Muniz",
+      "partido": "PSDB",
+      "email": "carlosmuniz@cms.ba.gov.br",
+      "instagram": "carlosmuniz.oficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/799d733c84abf66dcb356ceea410a07e_1683139594.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Cezar Leite",
+      "partido": "PL",
+      "email": "cezarleite@cms.ba.gov.br",
+      "instagram": "cezarleiteoficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/9af4d2f4b7b0f08fbeb001f87e77a5_1735309625.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Claudio Tinoco",
+      "partido": "União",
+      "email": "claudiotinoco@cms.ba.gov.br",
+      "instagram": "claudiotinoco",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/b1e1ec16dbbd572be29e9bebb5becdd0_1736516687.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Cris Correia",
+      "partido": "PSDB",
+      "email": "assessoriacriscorreia@cms.ba.gov.br",
+      "instagram": "criscorreia.ssa",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/622a5e2ae9ba95c553d37d9d49c27118_1736517153.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Daniel Alves",
+      "partido": "PSDB",
+      "email": "danielalves@cms.ba.gov.br",
+      "instagram": "danielalves.ssa",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/80e0aac73e56bbc76132220d1a14ed52_1736518551.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "David Rios",
+      "partido": "MDB",
+      "email": "drdavidrios@cms.ba.gov.br",
+      "instagram": "drdavidrios",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/fc5a33a1edbfce6519e15efd1b25edfb_1735308544.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Débora Santana",
+      "partido": "PSDB",
+      "email": "deborasantana@cms.ba.gov.br",
+      "instagram": "deborasantanaba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/9f7ca46be20128ebfab0facf2c648af7_1736517879.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Duda Sanches",
+      "partido": "PSDB",
+      "email": "dudasanches@cms.ba.gov.br",
+      "instagram": "dudasanchesba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/6d651f5919efb1dfff2f65c5d5bc2880_1736783399.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Eliete Paraguassu",
+      "partido": "PSOL",
+      "email": "gabineteelieteparaguassu@cms.ba.gov.br",
+      "instagram": "elieteparaguassuoficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/a253f7f97019cf1a2c74eed3ce23db58_1735309793.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Fábio Souza",
+      "partido": "PRD",
+      "email": "fabio.souza@cms.ba.gov.br",
+      "instagram": "fabiosouzavereador",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/3e80852abcb4c886b8736685dffc3cfb_1736518228.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Hamilton Assis",
+      "partido": "PSOL",
+      "email": "gabineteprofessorhamiltonassis@cms.ba.gov.br",
+      "instagram": "hamiltonassis",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/22ced79030992233449d6c1e0cea47df_1735309882.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Helio Ferreira",
+      "partido": "PCdoB",
+      "email": "helioferreira@cms.ba.gov.br",
+      "instagram": "helioferreiravereador",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/7b7916dd2de56297aa29cccb2bbf48d4_1736523711.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Ireuda Silva",
+      "partido": "Republicanos",
+      "email": "ireudasilva@cms.ba.gov.br",
+      "instagram": "ireudasilvaoficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/4346ad94c2790cac390e684155a2ecba_1736783678.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Isabela Sousa",
+      "partido": "Cidadania",
+      "email": "izabelasousa@cms.ba.gov.br",
+      "instagram": "isabelasousaba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/4b2a0ea3017d894b96de7bd4a45729d5_1735308928.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "João Cláudio Bacelar",
+      "partido": "Podemos",
+      "email": "joaoclaudiobacelar@cms.ba.gov.br",
+      "instagram": "bacelarjc",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/668426da67b63e07674ea8c2ff286289_1735313477.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Jorge Araújo",
+      "partido": "PP",
+      "email": "jorgearaujo@cms.ba.gov.br",
+      "instagram": "jorgearaujooficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/c4c0466a651f3c8b6911a1ac164f1879_1735310955.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Kel Torres",
+      "partido": "Republicanos",
+      "email": "keltorres@cms.ba.gov.br",
+      "instagram": "keltorresoficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/e72d58699e2b0ef6fb64ab80fff4e29c_1735311367.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Kênio Rezende",
+      "partido": "PRD",
+      "email": "",
+      "instagram": "keniorezende",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/733f3d1e7b02f704a80521ed8e9ad70f_1735309141.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Kiki Bispo",
+      "partido": "União",
+      "email": "kikibispo@cms.ba.gov.br",
+      "instagram": "kikibispooficial",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/df986d86710f8bc5e81d572df899f010_1550589137.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Luiz Carlos",
+      "partido": "Republicanos",
+      "email": "luizcarlos@cms.ba.gov.br",
+      "instagram": "amigoluizcarlos",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/ae7a1e9f54c777f16aa36391dfdc013f_1736858053.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Marcelle Moraes",
+      "partido": "União",
+      "email": "marcellemoraes@cms.ba.gov.br",
+      "instagram": "marcellecmoraes",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/af7c60560028236e4abdd5abb7f22d79_1736858292.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Marcelo Guimarães Neto",
+      "partido": "União",
+      "email": "contato@marceloguimaraesneto.com.br",
+      "instagram": "marceloguimaraesnetoba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/21f201dbabfce0c78e027b5fc9325811_1735309244.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Marta Rodrigues",
+      "partido": "PT",
+      "email": "martarodrigues@cms.ba.gov.br",
+      "instagram": "martamerepresenta",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/b3e6c893288d4eb6ecd2339a8a0afe84_1736862830.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Maurício Trindade",
+      "partido": "PP",
+      "email": "mauriciotrindade@cms.ba.gov.br",
+      "instagram": "drmauriciotrindade",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/8195c457797bd5e81479bf41be59e0fa_1736862990.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Omarzinho Gordilho",
+      "partido": "PDT",
+      "email": "omarzinho@cms.ba.gov.br",
+      "instagram": "omarzinhoba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/c64c1dc40ade60a3aba8332e10260c93_1735313137.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Orlando Palhinha",
+      "partido": "União",
+      "email": "palhinha@cms.ba.gov.br",
+      "instagram": "vereadorpalhinha.ba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/5da16aad8a67c6070160b15ef421c3ef_1550589333.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Paulo Magalhães Júnior",
+      "partido": "União",
+      "email": "paulomagalhaes@cms.ba.gov.br",
+      "instagram": "paulomagalhaes.jr",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/86bc54c80f654ef8bb66274febd8f6fe_1736858555.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Randerson Leal",
+      "partido": "Podemos",
+      "email": "randersonleal@cms.ba.gov.br",
+      "instagram": "randersonleal",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/434f3fd22d882b791615dccd0073179b_1751296075.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Ricardo Almeida",
+      "partido": "DC",
+      "email": "ricardoalmeida@cms.ba.gov.br",
+      "instagram": "ricardoalmeida.ba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/54b41dd07dd1fc2ebbcd3539ca3be702_1736859360.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Roberta Caires",
+      "partido": "Republicanos",
+      "email": "robertacaires@cms.ba.gov.br",
+      "instagram": "robertacairesba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/9bd68fc85788d86a6a74310eda902afe_1736859638.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Rodrigo Amaral",
+      "partido": "PSDB",
+      "email": "rodrigoamaral@cms.ba.gov.br",
+      "instagram": "rodrigoamaral.ofc",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/434f3fd22d882b791615dccd0073179b_1751296075.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Sandro Bahiense",
+      "partido": "PP",
+      "email": "sandrobahiense@cms.ba.gov.br",
+      "instagram": "sandrobahiense",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/3463ba87bdc01378649630ed94f57eef_1677682218.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Sandro Filho",
+      "partido": "PP",
+      "email": "vereadorsandrofilho@cms.ba.gov.br",
+      "instagram": "sandrofilhoba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/e6b231fb2b3929775603d68aba761207_1735312182.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Sidninho",
+      "partido": "PP",
+      "email": "sidninho@cms.ba.gov.br",
+      "instagram": "sidninho",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/9e57f78cdc3a5f5052ff53af3df8e6eb_1736860138.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Sílvio Humberto",
+      "partido": "PSB",
+      "email": "silviohumberto@cms.ba.gov.br",
+      "instagram": "silviohumberto_",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/b2fc19323fe826741d0448e2eaaf703d_1736863163.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    },
+    {
+      "nome": "Téo Senna",
+      "partido": "PSDB",
+      "email": "teosenna@cms.ba.gov.br",
+      "instagram": "teosennaba",
+      "foto": "https://www.cms.ba.gov.br/uploads/vereadores/fb8db03428fa70f7ffbe9b01ce134e84_1736863398.jpg",
+      "assinaturaConfirmada": false,
+      "dataAssinatura": ""
+    }
   ]
 }
