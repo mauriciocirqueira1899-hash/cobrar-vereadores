@@ -129,7 +129,7 @@ function renderCouncilors() {
   list.forEach(p => {
     const card = el("article", "council-card");
     const head = el("div", "card-head");
-    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w).join("").toLocaleUpperCase("pt-BR");
+    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("pt-BR");
     const fallback = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
     const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
     if (src) {
@@ -146,13 +146,12 @@ function renderCouncilors() {
     cobrar.setAttribute("aria-haspopup", "dialog");
     cobrar.addEventListener("click", () => openCobranca(p));
     
-    // CORREÇÃO 1: Link do Instagram corrigido com aspas corretas e template string
     const insta = el("a", "btn btn-instagram"); insta.innerHTML = IG_SVG; insta.append(document.createTextNode(" @" + p.instagram));
     insta.href = `https://instagram.com{encodeURIComponent(p.instagram)}/`; insta.target = "_blank"; insta.rel = "noopener noreferrer";
     
     actions.append(cobrar, insta);
     card.append(head, sigBadge(p), actions);
-    grid.append(grid.append(card));
+    grid.append(card);
   });
 }
 
@@ -203,7 +202,8 @@ async function init() {
 
 function setupModalListeners() {
   const closeBtn = $("closeModal");
-if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
+  if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
+  
 ["btnCei", "btnPosicao", "btnTransparencia"].forEach(id => {
 const btn = $(id);
 if (btn) {
@@ -228,7 +228,6 @@ btnInsta.addEventListener("click", () => {
 const preview = $("modalPreview");
 if (preview) copyText(preview.value);
 if (state.activeUser) {
-// CORREÇÃO 2: String de abertura do link do modal corrigida com aspas e barras certas
 window.open(https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/, "_blank");
 }
 });
