@@ -119,7 +119,7 @@ function renderCouncilors() {
     
    const insta = el("a", "btn btn-instagram", "");
     insta.href = `https://www.instagram.com/${encodeURIComponent(p.instagram)}/`;
-    insta.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> Instagram`;
+    insta.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @${p.instagram}`;
     insta.target = "_blank"; insta.rel = "noopener noreferrer"; insta.setAttribute("aria-label", `Abrir Instagram de ${p.nome} (nova aba)`);
     
     actions.append(copy, insta);
