@@ -79,7 +79,7 @@ function renderCampaign(c) {
   const top = el("div", "campaign-top"); const box = el("div");
   const actions = el("div", "campaign-actions");
   const b1 = el("a", "btn", "Cobrar um vereador"); b1.href = "#vereadores";
-  const b2 = el("a", "btn secondary", "Consultar Câmara Municipal"); b2.href = "https://www.cms.ba.gov.br/vereadores"; b2.target = "_blank"; b2.rel = "noopener noreferrer";
+  const b2 = el("a", "btn secondary", "Consultar Câmara Municipal"); b2.href = "https://cms.ba.gov.br"; b2.target = "_blank"; b2.rel = "noopener noreferrer";
   actions.append(b1, b2);
   box.append(el("span", "status", c.status), el("h3", "", c.titulo), el("p", "", c.resumo), actions);
   top.append(box);
@@ -129,7 +129,7 @@ function renderCouncilors() {
   list.forEach(p => {
     const card = el("article", "council-card");
     const head = el("div", "card-head");
-    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("pt-BR");
+    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w).join("").toLocaleUpperCase("pt-BR");
     const fallback = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
     const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
     if (src) {
@@ -156,7 +156,7 @@ function renderCouncilors() {
 }
 
 /* ===== Assinaturas ===== */
-const fmtData = d => { const m = (d || "").match(/^(\d{4})-(\d{2})-(\d{2})$/) || (d || "").match(/^(\d{2})-(\d{2})-(\d{4})$/); return !m ? (d || "") : m[1].length === 4 ? `${m[3]}/${m[2]}/${m[1]}` : `${m[1]}/${m[2]}/${m[3]}`; };
+const fmtData = d => { const m = (d || "").match(/^(\d{4})-(\d{2})-(\d{2})$/) || (d || "").match(/^(\d{2})-(\d{2})-(\d{4})$/); return !m ? (d || "") : m.length === 4 ? `${m}/${m}/${m}` : `${m}/${m}/${m}`; };
 const sigCfg = () => (state.campaign && state.campaign.assinaturas) || {};
 function sigInfo(p) { return { ok: p.assinaturaConfirmada === true || p.assinaturaConfirmada === "true", url: safeUrl(p.fonteAssinatura || sigCfg().fonteUrl), data: fmtData(p.dataAssinatura) }; }
 
@@ -184,7 +184,7 @@ async function init() {
   try {
     const [v, c] = await Promise.all([fetch("data/vereadores.json"), fetch("data/campaigns.json")].map(p => p.then(r => { if (!r.ok) throw new Error(r.url); return r.json(); })));
     state.people = v.vereadores;
-    state.campaign = c.campanhas.find(x => x.id === c.ativa) || c.campanhas[0];
+    state.campaign = c.campanhas.find(x => x.id === c.ativa) || c.campanhas;
     renderCampaign(state.campaign);
     
     setupModalListeners();
