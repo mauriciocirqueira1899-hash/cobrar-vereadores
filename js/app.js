@@ -228,9 +228,7 @@ if (btnInsta) {
 btnInsta.addEventListener("click", () => {
 const preview = $("modalPreview");
 if (preview) copyText(preview.value);
-if (state.activeUser) {
-window.open(https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/, "_blank");
-}
+        window.open(`https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/`, "_blank");
 });
 }
 }
