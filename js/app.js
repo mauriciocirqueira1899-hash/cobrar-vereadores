@@ -1,13 +1,11 @@
 "use strict";
 const $ = id => document.getElementById(id);
-const state = { people: [], campaign: null, activeUser: null, activeType: "cei" };
+const state = { people: [], campaign: null, user: null, type: "cei", channel: "instagram" };
 let toastTimer;
 
 function showToast(msg) {
-  const t = $("toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
+  const t = $("toast"); if (!t) return;
+  t.textContent = msg; t.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
 }
@@ -22,55 +20,159 @@ function el(tag, cls, text) {
 const IG_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>';
 const slug = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const safeUrl = u => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch { return null; } };
+const igUrl = user => `https://www.instagram.com/${encodeURIComponent(user)}/`;
 
-const getMessageTemplate = (type, nomeVereador) => {
-  const templates = {
-    cei: `Olá, vereador(a) ${nomeVereador}. Como cidadão de Salvador, gostaria de solicitar o seu apoio e assinatura oficial no requerimento para a instalação da CEI sobre a frota de ônibus. A transparência no transporte público é fundamental para nossa cidade!`,
-    posicao: `Olá, vereador(a) ${nomeVereador}. Gostaria de saber formalmente qual é o seu posicionamento público a respeito da fiscalização do transporte coletivo em Salvador. Aguardo sua resposta pelas redes sociais.`,
-    transparencia: `Prezado(a) vereador(a) ${nomeVereador}, solicito acesso e transparência total às informações relativas ao andamento do requerimento da CEI do transporte coletivo. A população merece respostas claras.`
+/* ===== Mensagens ===== */
+const OPTIONS = [
+  { id: "cei", label: "Apoiar e assinar o requerimento de CEI", subject: "Requerimento de CEI sobre a frota de ônibus" },
+  { id: "posicao", label: "Pedir posição pública (sim ou não)", subject: "Posicionamento sobre a CEI da frota de ônibus" },
+  { id: "transparencia", label: "Pedir transparência sobre o requerimento", subject: "Transparência sobre o requerimento de CEI" },
+  { id: "livre", label: "Escrever minha própria mensagem", subject: "Mensagem de cidadão de Salvador" }
+];
+
+function getMessage(type, nome) {
+  const base = state.campaign && state.campaign.mensagem;
+  const custom = $("customMessage") ? $("customMessage").value.trim() : "";
+  const ceiText = custom || base || `Olá, vereador(a) {nome}. Como cidadão(ã) de Salvador, peço que o(a) senhor(a) assine o requerimento de instalação da CEI sobre a frota de ônibus e informe publicamente sua posição.`;
+  const t = {
+    cei: ceiText,
+    posicao: `Olá, vereador(a) {nome}. Como cidadão(ã) de Salvador, gostaria de saber qual é o seu posicionamento público sobre o requerimento de instalação da CEI da frota de ônibus: o(a) senhor(a) é favorável ou contrário(a)? Aguardo sua resposta.`,
+    transparencia: `Prezado(a) vereador(a) {nome}, como cidadão(ã) de Salvador, peço transparência sobre o andamento do requerimento de CEI da frota de ônibus: quem assinou, qual é o prazo e como acompanhar a votação. Aguardo retorno.`,
+    livre: ""
   };
-  return templates[type] || templates.cei;
-};
+  return (t[type] || "").replaceAll("{nome}", nome);
+}
 
-async function copyText(text) {
+async function copyText(text, okMsg) {
   try {
     await navigator.clipboard.writeText(text);
-    showToast("Mensagem copiada com sucesso!");
+    showToast(okMsg || "Mensagem copiada com sucesso!");
   } catch {
     const a = document.createElement("textarea");
     a.value = text; document.body.appendChild(a); a.select();
-    document.execCommand("copy"); a.remove();
-    showToast("Mensagem copiada.");
+    try { document.execCommand("copy"); } catch {}
+    a.remove();
+    showToast(okMsg || "Mensagem copiada.");
   }
 }
 
+/* ===== Foto com fallback de iniciais ===== */
+function photoEl(p) {
+  const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w[0]).join("").toLocaleUpperCase("pt-BR");
+  const fallback = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
+  const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
+  if (!src) return fallback();
+  const img = document.createElement("img");
+  img.src = src; img.alt = `Foto de ${p.nome}`; img.loading = "lazy"; img.width = 60; img.height = 60;
+  img.addEventListener("error", () => img.replaceWith(fallback()), { once: true });
+  return img;
+}
+
+/* ===== Janela "Cobrar vereador(a)" ===== */
+function buildDialog() {
+  if ($("cobrarDialog")) return;
+  const d = document.createElement("dialog");
+  d.id = "cobrarDialog"; d.className = "cobrar-dialog"; d.setAttribute("aria-labelledby", "cdTitle");
+  d.innerHTML = `
+    <button type="button" class="cd-close" id="cdClose" aria-label="Fechar">×</button>
+    <div class="cd-head"><span id="cdPhoto"></span><div><h3 id="cdTitle"></h3><span class="party" id="cdParty"></span></div></div>
+    <fieldset class="cd-q" id="cdQ"><legend>O que você quer cobrar?</legend></fieldset>
+    <div class="cd-tabs" role="group" aria-label="Canal de envio">
+      <button type="button" data-ch="instagram" aria-pressed="true">Instagram</button>
+      <button type="button" data-ch="email" aria-pressed="false">E-mail</button>
+    </div>
+    <div class="cd-preview">
+      <div class="cd-meta" id="cdMeta"></div>
+      <label class="sr-only" for="cdText">Texto da mensagem</label>
+      <textarea id="cdText" rows="7"></textarea>
+      <div class="cd-count" id="cdCount"></div>
+    </div>
+    <p class="cd-hint" id="cdHint"></p>
+    <div class="cd-actions">
+      <button type="button" class="btn ghost" id="cdCopy">Copiar texto</button>
+      <button type="button" class="btn btn-instagram" id="cdIg">${IG_SVG} Copiar e abrir Instagram</button>
+      <a class="btn" id="cdMail" href="#">Abrir e-mail</a>
+    </div>
+    <p class="cd-note">Esta mensagem é de cidadão e não é assinatura nem ato oficial de vereador. Este site não envia nem guarda o texto.</p>`;
+  document.body.append(d);
+
+  const q = $("cdQ");
+  OPTIONS.forEach((o, i) => {
+    const lab = el("label", "cd-opt");
+    const r = document.createElement("input");
+    r.type = "radio"; r.name = "cdOpt"; r.value = o.id; if (i === 0) r.checked = true;
+    r.addEventListener("change", () => { state.type = o.id; setText(getMessage(o.id, state.user.nome)); if (o.id === "livre") $("cdText").focus(); });
+    lab.append(r, el("span", "", o.label));
+    q.append(lab);
+  });
+
+  d.querySelectorAll(".cd-tabs button").forEach(b => b.addEventListener("click", () => setChannel(b.dataset.ch)));
+  $("cdClose").addEventListener("click", () => closeDialog());
+  d.addEventListener("click", e => { if (e.target === d) closeDialog(); });
+  $("cdText").addEventListener("input", refresh);
+  $("cdCopy").addEventListener("click", () => copyText($("cdText").value));
+  $("cdIg").addEventListener("click", () => {
+    copyText($("cdText").value, "Texto copiado. Cole no perfil ou direct do Instagram.");
+    if (state.user) window.open(igUrl(state.user.instagram), "_blank", "noopener,noreferrer");
+  });
+}
+
+function closeDialog() {
+  const d = $("cobrarDialog"); if (!d) return;
+  if (d.close) d.close(); else d.removeAttribute("open");
+}
+
+function setText(t) { $("cdText").value = t; refresh(); }
+
+function setChannel(ch) {
+  state.channel = ch;
+  document.querySelectorAll("#cobrarDialog .cd-tabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ch === ch)));
+  refresh();
+}
+
+function refresh() {
+  const p = state.user; if (!p) return;
+  const text = $("cdText").value;
+  const hasMail = !!(p.email && p.email.trim());
+  const mailTab = document.querySelector('#cobrarDialog .cd-tabs [data-ch="email"]');
+  mailTab.disabled = !hasMail;
+  if (!hasMail && state.channel === "email") state.channel = "instagram";
+  const ig = state.channel === "instagram";
+  const opt = OPTIONS.find(o => o.id === state.type) || OPTIONS[0];
+  document.querySelectorAll("#cobrarDialog .cd-tabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ch === state.channel)));
+
+  $("cdCount").textContent = `${text.length} caracteres`;
+  $("cdIg").hidden = !ig;
+  $("cdMail").hidden = ig;
+  $("cdCopy").hidden = false;
+
+  if (ig) {
+    $("cdMeta").textContent = `Para: @${p.instagram}`;
+    $("cdHint").textContent = "O Instagram não permite abrir o direct com texto pronto. O texto é copiado e você cola no perfil ou no direct.";
+  } else {
+    const subject = `${opt.subject}`;
+    $("cdMeta").textContent = `Para: ${p.email} · Assunto: ${subject}`;
+    $("cdMail").href = `mailto:${p.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    $("cdHint").textContent = hasMail ? "O e-mail abre já preenchido no seu aplicativo de e-mail." : "";
+  }
+  if (!hasMail) $("cdHint").textContent += (ig ? " " : "") + "Este vereador não tem e-mail público cadastrado.";
+}
+
 function openCobranca(p) {
-  state.activeUser = p;
-  state.activeType = "cei";
-  
-  const modal = $("modalCobranca");
-  if (!modal) return;
-  
-  if ($("modalNome")) $("modalNome").textContent = p.nome;
-  if ($("modalPartido")) $("modalPartido").textContent = p.partido;
-  
-  const img = $("modalFoto");
-  if (img) img.src = p.foto || `img/vereadores/${slug(p.nome)}.jpg`;
-  
-  updateModalText();
-  modal.classList.add("open");
+  buildDialog();
+  state.user = p; state.type = "cei"; state.channel = "instagram";
+  $("cdPhoto").replaceChildren(photoEl(p));
+  $("cdTitle").textContent = p.nome;
+  $("cdParty").textContent = p.partido;
+  const first = document.querySelector('#cdQ input[value="cei"]'); if (first) first.checked = true;
+  setText(getMessage("cei", p.nome));
+  const d = $("cobrarDialog");
+  if (typeof d.showModal === "function") { if (!d.open) d.showModal(); } else d.setAttribute("open", "");
 }
 
-function updateModalText() {
-  if (!state.activeUser) return;
-  const txt = getMessageTemplate(state.activeType, state.activeUser.nome);
-  const preview = $("modalPreview");
-  if (preview) preview.value = txt;
-}
-
+/* ===== Campanha ===== */
 function renderCampaign(c) {
-  const s = $("campanha");
-  if (!s) return;
+  const s = $("campanha"); if (!s) return;
   s.replaceChildren();
   const head = el("div", "section-heading");
   const hd = el("div"); hd.append(el("h2", "", "Campanha em destaque"), el("p", "", "Uma pauta pública para acompanhar com responsabilidade."));
@@ -94,8 +196,8 @@ function renderCampaign(c) {
   } else {
     body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmação por fonte oficial."));
   }
-
   if (r.situacao) body.append(el("p", "docs-empty", "Situação: " + r.situacao));
+
   body.append(el("h4", "", "Linha do tempo (com fontes)"));
   const ul = el("ul", "timeline");
   (c.linhaDoTempo || []).forEach(i => {
@@ -106,66 +208,29 @@ function renderCampaign(c) {
   });
   body.append(ul);
 
-  const notice = el("div", "notice"); const st = el("strong", "", "Transparência: "); notice.append(st, document.createTextNode(c.aviso));
+  const notice = el("div", "notice"); notice.append(el("strong", "", "Transparência: "), document.createTextNode(c.aviso || ""));
   art.append(top, body, notice);
   s.append(head, art);
 }
 
-function renderCouncilors() {
-  const q = $("searchName") ? $("searchName").value.trim().toLocaleLowerCase("pt-BR") : "";
-  const party = $("partyFilter") ? $("partyFilter").value : "";
-  const list = state.people
-    .filter(p => (!party || p.partido === party) && (p.nome + " " + p.partido).toLocaleLowerCase("pt-BR").includes(q))
-    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
-  
-  if ($("sortOrder") && $("sortOrder").value === "za") list.reverse();
-  const grid = $("councilGrid");
-  if (!grid) return;
-  grid.replaceChildren();
-  
-  if($("resultsLine")) $("resultsLine").textContent = `${list.length} ${list.length === 1 ? "perfil encontrado" : "perfis encontrados"}.`;
-  if (!list.length) { grid.append(el("div", "empty", "Nenhum vereador encontrado. Confira a grafia ou o partido.")); return; }
-
-  list.forEach(p => {
-    const card = el("article", "council-card");
-    const head = el("div", "card-head");
-    const initials = p.nome.split(/\s+/).slice(0, 2).map(w => w).join("").toLocaleUpperCase("pt-BR");
-    const fallback = () => { const a = el("div", "avatar", initials); a.setAttribute("aria-hidden", "true"); return a; };
-    const src = p.foto ? (p.foto.startsWith("img/") ? p.foto : safeUrl(p.foto)) : `img/vereadores/${slug(p.nome)}.jpg`;
-    if (src) {
-      const img = document.createElement("img");
-      img.src = src; img.alt = `Foto de ${p.nome}`; img.loading = "lazy"; img.width = 60; img.height = 60;
-      img.addEventListener("error", () => img.replaceWith(fallback()), { once: true });
-      head.append(img);
-    } else head.append(fallback());
-    const info = el("div"); info.append(el("h3", "", p.nome), el("span", "party", p.partido));
-    head.append(info);
-
-    const actions = el("div", "card-actions");
-    const cobrar = el("button", "btn", "Cobrar vereador(a)"); cobrar.type = "button";
-    cobrar.setAttribute("aria-haspopup", "dialog");
-    cobrar.addEventListener("click", () => openCobranca(p));
-    
-    // CORREÇÃO 1: Adicionado o caractere '$' que faltava na interpolação do link
-    const insta = el("a", "btn btn-instagram"); insta.innerHTML = IG_SVG; insta.append(document.createTextNode(" @" + p.instagram));
-    insta.href = `https://instagram.com{encodeURIComponent(p.instagram)}/`; insta.target = "_blank"; insta.rel = "noopener noreferrer";
-    
-    actions.append(cobrar, insta);
-    card.append(head, sigBadge(p), actions);
-    grid.append(card);
-  });
-}
-
 /* ===== Assinaturas ===== */
-const fmtData = d => { const m = (d || "").match(/^(\d{4})-(\d{2})-(\d{2})$/) || (d || "").match(/^(\d{2})-(\d{2})-(\d{4})$/); return !m ? (d || "") : m.length === 4 ? `${m}/${m}/${m}` : `${m}/${m}/${m}`; };
+const fmtData = d => {
+  d = d || "";
+  let m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/); if (m) return `${m[3]}/${m[2]}/${m[1]}`;
+  m = d.match(/^(\d{2})-(\d{2})-(\d{4})$/); if (m) return `${m[1]}/${m[2]}/${m[3]}`;
+  return d;
+};
 const sigCfg = () => (state.campaign && state.campaign.assinaturas) || {};
-function sigInfo(p) { return { ok: p.assinaturaConfirmada === true || p.assinaturaConfirmada === "true", url: safeUrl(p.fonteAssinatura || sigCfg().fonteUrl), data: fmtData(p.dataAssinatura) }; }
+function sigInfo(p) {
+  return { ok: p.assinaturaConfirmada === true || p.assinaturaConfirmada === "true", url: safeUrl(p.fonteAssinatura || sigCfg().fonteUrl), data: fmtData(p.dataAssinatura) };
+}
 
 function sigBadge(p) {
   const i = sigInfo(p), d = el("div", "signature-status " + (i.ok ? "confirmed" : "pending"));
   d.append(el("span", "", i.ok ? "✓ Assinatura confirmada" : "◷ Assinatura não confirmada"));
   if (i.ok && (i.data || i.url)) {
-    const s = el("small"); if (i.data) s.append(document.createTextNode(i.data + (i.url ? " · " : "")));
+    const s = el("small");
+    if (i.data) s.append(document.createTextNode(i.data + (i.url ? " · " : "")));
     if (i.url) { const a = el("a", "", "fonte"); a.href = i.url; a.target = "_blank"; a.rel = "noopener noreferrer"; s.append(a); }
     d.append(s);
   }
@@ -174,73 +239,86 @@ function sigBadge(p) {
 
 function updateCounter() {
   const c = $("signatureCount"); if (!c) return;
-  const total = state.people.length, n = state.people.filter(p => sigInfo(p).ok).length, meta = Number(sigCfg().necessarias) || total;
+  const n = state.people.filter(p => sigInfo(p).ok).length;
+  const meta = Number(sigCfg().necessarias) || state.people.length;
   const pct = Math.min(100, Math.round(n / meta * 100));
   c.textContent = `${n} de ${meta}`;
   const bar = $("signatureProgressBar"); if (bar) bar.style.width = pct + "%";
   const pg = $("signatureProgress"); if (pg) pg.setAttribute("aria-valuenow", String(pct));
 }
 
+/* ===== Cards ===== */
+function renderCouncilors() {
+  const q = $("searchName") ? $("searchName").value.trim().toLocaleLowerCase("pt-BR") : "";
+  const party = $("partyFilter") ? $("partyFilter").value : "";
+  const list = state.people
+    .filter(p => (!party || p.partido === party) && (p.nome + " " + p.partido).toLocaleLowerCase("pt-BR").includes(q))
+    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  if ($("sortOrder") && $("sortOrder").value === "za") list.reverse();
+
+  const grid = $("councilGrid"); if (!grid) return;
+  grid.replaceChildren();
+  if ($("resultsLine")) $("resultsLine").textContent = `${list.length} ${list.length === 1 ? "perfil encontrado" : "perfis encontrados"}.`;
+  if (!list.length) { grid.append(el("div", "empty", "Nenhum vereador encontrado. Confira a grafia ou o partido.")); return; }
+
+  list.forEach(p => {
+    const card = el("article", "council-card");
+    const head = el("div", "card-head");
+    head.append(photoEl(p));
+    const info = el("div"); info.append(el("h3", "", p.nome), el("span", "party", p.partido));
+    head.append(info);
+
+    const actions = el("div", "card-actions");
+    const cobrar = el("button", "btn", "Cobrar vereador(a)"); cobrar.type = "button";
+    cobrar.setAttribute("aria-haspopup", "dialog");
+    cobrar.addEventListener("click", () => openCobranca(p));
+
+    const insta = el("a", "btn btn-instagram"); insta.innerHTML = IG_SVG; insta.append(document.createTextNode(" @" + p.instagram));
+    insta.href = igUrl(p.instagram); insta.target = "_blank"; insta.rel = "noopener noreferrer";
+
+    actions.append(cobrar, insta);
+    card.append(head, sigBadge(p), actions);
+    grid.append(card);
+  });
+}
+
+/* ===== Edição da mensagem geral ===== */
+function setupCustomMessage() {
+  const ta = $("customMessage"); if (!ta) return;
+  const base = (state.campaign && state.campaign.mensagem) || "";
+  ta.value = base;
+  const reset = $("resetMessage"), copy = $("copyCustom");
+  if (reset) reset.addEventListener("click", () => { ta.value = base; showToast("Texto restaurado."); });
+  if (copy) copy.addEventListener("click", () => copyText(ta.value.replaceAll("{nome}", "(nome do vereador)")));
+}
+
+/* ===== Início ===== */
 async function init() {
   try {
-    const [v, c] = await Promise.all([fetch("data/vereadores.json"), fetch("data/campaigns.json")].map(p => p.then(r => { if (!r.ok) throw new Error(r.url); return r.json(); })));
+    const [v, c] = await Promise.all(
+      [fetch("data/vereadores.json"), fetch("data/campaigns.json")].map(p => p.then(r => { if (!r.ok) throw new Error(r.url); return r.json(); }))
+    );
     state.people = v.vereadores;
-    state.campaign = c.campanhas.find(x => x.id === c.ativa) || c.campanhas;
+    state.campaign = c.campanhas.find(x => x.id === c.ativa) || c.campanhas[0];
     renderCampaign(state.campaign);
-    
-    setupModalListeners();
-    
-    [...new Set(state.people.map(p => p.partido))].sort((a, b) => a.localeCompare(b, "pt-BR")).forEach(pt => {
-      const o = el("option", "", pt); o.value = pt; if($("partyFilter")) $("partyFilter").append(o);
+    setupCustomMessage();
+
+    const pf = $("partyFilter");
+    if (pf) [...new Set(state.people.map(p => p.partido))].sort((a, b) => a.localeCompare(b, "pt-BR")).forEach(pt => {
+      const o = el("option", "", pt); o.value = pt; pf.append(o);
     });
-    
+
     updateCounter();
     renderCouncilors();
   } catch (e) {
-    if($("campanha")) $("campanha").replaceChildren(el("div", "error", "Não foi possível carregar os dados."));
+    console.error(e);
+    if ($("campanha")) $("campanha").replaceChildren(el("div", "error", "Não foi possível carregar os dados."));
   }
 }
 
-function setupModalListeners() {
-  const closeBtn = $("closeModal");
-if (closeBtn) closeBtn.addEventListener("click", () => $("modalCobranca").classList.remove("open"));
-["btnCei", "btnPosicao", "btnTransparencia"].forEach(id => {
-const btnElement = $(id);
-if (btnElement) {
-btnElement.addEventListener("click", (e) => {
-document.querySelectorAll(".modal-tabs-questions .btn").forEach(b => b.classList.remove("active"));
-e.target.classList.add("active");
-state.activeType = e.target.dataset.type;
-updateModalText();
+["searchName", "partyFilter", "sortOrder"].forEach(id => {
+  const n = $(id); if (!n) return;
+  ["input", "change"].forEach(ev => n.addEventListener(ev, renderCouncilors));
 });
-}
-});
-const btnCopiar = $("btnModalCopiar");
-if (btnCopiar) {
-btnCopiar.addEventListener("click", () => {
-const preview = $("modalPreview");
-if (preview) copyText(preview.value);
-});
-}
-const btnInsta = $("btnModalInstagram");
-if (btnInsta) {
-btnInsta.addEventListener("click", () => {
-const preview = $("modalPreview");
-if (preview) copyText(preview.value);
-if (state.activeUser) {
-// CORREÇÃO 2: Formatação da abertura do Instagram corrigida com aspas e barras válidas
-window.open(https://instagram.com{encodeURIComponent(state.activeUser.instagram)}/, "_blank");
-}
-});
-}
-}
-// CORREÇÃO 3: Adicionadas travas de segurança individuais para evitar congelamento nos Event Listeners
-if ($("searchName")) {
-["input", "change"].forEach(ev => $("searchName").addEventListener(ev, renderCouncilors));
-}
-if ($("partyFilter")) {
-["input", "change"].forEach(ev => $("partyFilter").addEventListener(ev, renderCouncilors));
-}
-if ($("sortOrder")) {
-$("sortOrder").addEventListener("change", renderCouncilors);
-}
+
+init();
