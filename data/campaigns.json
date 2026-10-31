@@ -35,3 +35,32 @@
           "data": "26/10/2026",
           "texto": "TRE-BA revoga a ordem de prisão, mantém a apuração e determina que prefeitura, secretaria e concessionárias apresentem documentos em até 48 horas. A revogação não significa absolvição.",
           "fonte": "Diario de Pernambuco",
+          "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727662-tre-ba-revoga-prisao-de-secretario-de-salvador-mas-mantem-investigacao-sobre-onibus.html"
+        },
+        {
+          "data": "27/10/2026",
+          "texto": "Vereadores da oposição protocolam requerimento de CEI e o entregam ao presidente da Câmara. Segundo o Regimento citado pela imprensa, a CEI precisa ser requerida por um terço dos vereadores e aprovada em plenário.",
+          "fonte": "BNews",
+          "url": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html"
+        },
+        {
+          "data": "Data a confirmar",
+          "texto": "TRE-BA mantém a multa e envia cópia dos autos à Procuradoria Regional Eleitoral e à Polícia Federal para apuração de responsabilidade criminal.",
+          "fonte": "A Tarde",
+          "url": "https://atarde.com.br/politica/tre-mantem-multa-e-investigacao-da-pf-na-reducao-de-frota-em-salvador-1407179"
+        }
+      ],
+      "documentos": [],
+      "mensagem": "Olá, vereador(a) {nome}. Sou morador(a) de Salvador e escrevo como cidadão(ã). No segundo turno das eleições (25/10), o TRE-BA determinou o restabelecimento integral da frota de ônibus e mandou apurar a redução da circulação, apontando indícios, em tese, de violação ao Código Eleitoral. A apuração segue em curso e a Prefeitura nega ter orientado a redução. Cabe à Câmara fiscalizar o Executivo. Em 27/10 foi protocolado requerimento de Comissão Especial de Inquérito, que precisa de 14 assinaturas: peço que o(a) senhor(a) o assine, garantidos o contraditório e a ampla defesa, e informe publicamente sua posição. Aguardo resposta.",
+      "assinaturas": {
+        "necessarias": 14,
+        "fonteNome": "BNews",
+        "fonteUrl": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html",
+        "atualizadoEm": "31/10/2026",
+        "totalRelatado": 10,
+        "fonteTotalUrl": "https://www.jacobinanoticia.com.br/2026/10/vereadores-pedem-investigacao-sobre.html"
+      },
+      "mensagemGrupo": "Prezados(as) vereadores(as), sou morador(a) de Salvador e escrevo como cidadão(ã). No segundo turno das eleições (25/10), o TRE-BA determinou o restabelecimento integral da frota de ônibus e mandou apurar a redução da circulação, apontando indícios, em tese, de violação ao Código Eleitoral. A apuração segue em curso e a Prefeitura nega ter orientado a redução. Cabe à Câmara fiscalizar o Executivo. Em 27/10 foi protocolado requerimento de Comissão Especial de Inquérito, que precisa de 14 assinaturas. Peço que subscrevam o requerimento, garantidos o contraditório e a ampla defesa, e informem publicamente suas posições. Aguardo resposta."
+    }
+  ]
+}
