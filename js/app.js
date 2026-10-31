@@ -182,30 +182,37 @@ function openCobranca(p) {
 function renderCampaign(c) {
   const s = $("campanha"); if (!s) return;
   s.replaceChildren();
-  const head = el("div", "section-heading");
-  const hd = el("div"); hd.append(el("h2", "", "Campanha em destaque"), el("p", "", "Uma pauta pública para acompanhar com responsabilidade."));
+  const head = el("div", "section-heading"), hd = el("div");
+  hd.append(el("h2", "", "Campanha em destaque"), el("p", "", "Uma pauta pública para acompanhar com responsabilidade."));
   head.append(hd);
-  const art = el("article", "campaign");
-  const top = el("div", "campaign-top"); const box = el("div");
-  const actions = el("div", "campaign-actions");
-  const b1 = el("a", "btn", "Cobrar um vereador"); b1.href = "#vereadores";
-  const b2 = el("a", "btn secondary", "Consultar Câmara Municipal"); b2.href = "https://www.cms.ba.gov.br"; b2.target = "_blank"; b2.rel = "noopener noreferrer";
+  const art = el("article", "campaign"), top = el("div", "campaign-top"), box = el("div"), actions = el("div", "campaign-actions");
+  const b1 = el("a", "btn", "Cobrar todos de uma vez"); b1.href = "#bulkBox";
+  const b2 = el("a", "btn secondary", "Escolher um vereador"); b2.href = "#vereadores";
   actions.append(b1, b2);
-  box.append(el("span", "status", c.status), el("h3", "", c.titulo), el("p", "", c.resumo), actions);
-  top.append(box);
-  const body = el("div", "campaign-body");
+  const note = el("p", "docs-empty"), nl = el("a", "", "Entenda o caso");
+  nl.href = "#caso"; nl.addEventListener("click", () => { const d = document.querySelector("#caso details"); if (d) d.open = true; });
+  note.append(document.createTextNode("Mensagens de cidadãos não são assinaturas. Fatos, fontes e andamento: "), nl, document.createTextNode("."));
+  box.append(el("span", "status", c.status), el("h3", "", c.titulo), el("p", "", c.resumo), actions, note);
+  top.append(box); art.append(top); s.append(head, art);
+  renderCase(c);
+}
 
+function renderCase(c) {
+  const anchor = $("vereadores"); if (!anchor) return;
+  let sec = $("caso");
+  if (!sec) { sec = document.createElement("section"); sec.id = "caso"; anchor.after(sec); }
+  sec.replaceChildren();
+  const det = document.createElement("details"); det.className = "case";
+  if (window.matchMedia && matchMedia("(min-width: 851px)").matches) det.open = true;
+  det.append(el("summary", "", "Entenda o caso, linha do tempo e fontes"));
+  const art = el("article", "campaign"), body = el("div", "campaign-body");
   body.append(el("h4", "", "Requerimento de CEI"));
-  const r = c.requerimento || {};
-  const link = r.documento_url && safeUrl(r.documento_url);
+  const r = c.requerimento || {}, link = r.documento_url && safeUrl(r.documento_url);
   if (link) {
     const a = el("a", "btn secondary", "Abrir documento oficial" + (r.numero ? " nº " + r.numero : ""));
     a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer"; body.append(a);
-  } else {
-    body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmação por fonte oficial."));
-  }
+  } else body.append(el("p", "docs-empty", "Documento ainda não disponível neste site. Será publicado após confirmação por fonte oficial."));
   if (r.situacao) body.append(el("p", "docs-empty", "Situação: " + r.situacao));
-
   body.append(el("h4", "", "Linha do tempo (com fontes)"));
   const ul = el("ul", "timeline");
   (c.linhaDoTempo || []).forEach(i => {
@@ -215,10 +222,10 @@ function renderCampaign(c) {
     ul.append(li);
   });
   body.append(ul);
-
+  const cms = el("a", "btn secondary", "Consultar Câmara Municipal"); cms.href = "https://www.cms.ba.gov.br"; cms.target = "_blank"; cms.rel = "noopener noreferrer";
+  body.append(cms);
   const notice = el("div", "notice"); notice.append(el("strong", "", "Transparência: "), document.createTextNode(c.aviso || ""));
-  art.append(top, body, notice);
-  s.append(head, art);
+  art.append(body, notice); det.append(art); sec.append(det);
 }
 
 /* ===== Assinaturas ===== */
@@ -309,8 +316,8 @@ function renderBulk() {
   const old = $("bulkBox"); if (old) old.remove();
   const pend = state.people.filter(p => !sigInfo(p).ok);
   const alvo = pend.filter(p => p.email && p.email.trim()), sem = pend.filter(p => !(p.email && p.email.trim()));
-  const anchor = document.querySelector("#vereadores .filters");
-  if (!alvo.length || !anchor) return;
+  const host = $("campanha");
+  if (!alvo.length || !host) return;
   const emails = alvo.map(p => p.email.trim());
   const box = el("article", "campaign"); box.id = "bulkBox";
   const top = el("div", "campaign-top"), tb = el("div");
@@ -334,9 +341,11 @@ function renderBulk() {
   cT.addEventListener("click", () => copyText(txt.value, "Texto copiado."));
   acts.append(mail, cE, cT);
   const det = document.createElement("details"); det.append(el("summary", "", "Ver quem vai receber"), el("p", "", alvo.map(p => p.nome).join(", ") + "."));
-  body.append(txt, hint, acts, det);
+  const dt = document.createElement("details"); dt.append(el("summary", "", "Ver e editar o texto do e-mail"), txt);
+  if (window.matchMedia && matchMedia("(min-width: 851px)").matches) dt.open = true;
+  body.append(acts, hint, dt, det);
   if (sem.length) body.append(el("p", "docs-empty", "Sem e-mail público na Câmara (use o Instagram): " + sem.map(p => p.nome).join(", ") + "."));
-  box.append(top, body); anchor.before(box); refreshBulk();
+  box.append(top, body); host.append(box); refreshBulk();
 }
 
 /* ===== Início ===== */

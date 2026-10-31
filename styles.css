@@ -266,3 +266,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #fbbf24; outline-offs
 #bulkBox details { margin: 10px 0; font-size: .88rem; color: #475569; }
 .toast { z-index: 1100; }
 @media (max-width: 600px) { .toast { bottom: 96px; } body { padding-bottom: 96px; } }
+
+/* ===== v7: ação primeiro no celular ===== */
+.hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero .hero-note { font-size: .82rem; margin: 12px 0 0; opacity: .85; }
+.case summary { cursor: pointer; font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 800; letter-spacing: -.02em; padding: 10px 0 16px; }
+#bulkBox { margin-top: 16px; scroll-margin-top: 12px; }
+#bulkBox details > summary, .campaign-body details > summary { cursor: pointer; font-weight: 700; color: #174ea6; }
+@media (max-width: 850px) { .hero-card { display: none; } .hero { padding: 34px 0 30px; } .hero h1 { margin: 14px 0; } section { margin-bottom: 30px; } }
+
