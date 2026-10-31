@@ -6,7 +6,7 @@
       "titulo": "Instalação de Comissão Especial de Inquérito sobre a redução da frota de ônibus no 2º turno",
       "status": "Em acompanhamento",
       "resumo": "No segundo turno das eleições de 2026 (25/10), houve denúncias de redução da frota de ônibus em Salvador. A Justiça Eleitoral determinou o restabelecimento da frota e mandou apurar os fatos; a Prefeitura nega ter orientado a redução. Esta campanha cobra dos vereadores posicionamento público sobre o requerimento de instalação de CEI, que cabe à Câmara apreciar como órgão fiscalizador do Executivo.",
-      "aviso": "O requerimento de CEI foi protocolado em 27/10/2026 (segundo a imprensa); o documento oficial ainda não foi publicado e será incluído aqui quando houver cópia oficial. O contador mostra apenas vereadores identificados pela imprensa como signatários (a data é a do protocolo); a imprensa chegou a relatar 10 assinaturas, mas só 8 nomes foram divulgados. A meta de 14 assinaturas (um terço da Câmara) é a citada nas reportagens: confirme no Regimento Interno. Mensagens enviadas por cidadãos por este site não são assinaturas nem comprovam adesão de qualquer vereador. Nenhuma decisão aponta culpa do prefeito; a Prefeitura nega ter orientado a redução.",
+      "aviso": "O requerimento de CEI foi protocolado em 27/10/2026 (segundo a imprensa); o documento oficial ainda não foi publicado e será incluído aqui quando houver cópia oficial. O contador reflete as 10 assinaturas relatadas pela imprensa; só 8 vereadores foram identificados por nome (marcados nos cards, com a data do protocolo). A meta de 14 assinaturas (um terço da Câmara) é a citada nas reportagens: confirme no Regimento Interno. Mensagens enviadas por cidadãos por este site não são assinaturas nem comprovam adesão de qualquer vereador. Nenhuma decisão aponta culpa do prefeito; a Prefeitura nega ter orientado a redução.",
       "requerimento": {
         "numero": "",
         "documento_url": "",
@@ -35,29 +35,3 @@
           "data": "26/10/2026",
           "texto": "TRE-BA revoga a ordem de prisão, mantém a apuração e determina que prefeitura, secretaria e concessionárias apresentem documentos em até 48 horas. A revogação não significa absolvição.",
           "fonte": "Diario de Pernambuco",
-          "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727662-tre-ba-revoga-prisao-de-secretario-de-salvador-mas-mantem-investigacao-sobre-onibus.html"
-        },
-        {
-          "data": "27/10/2026",
-          "texto": "Vereadores da oposição protocolam requerimento de CEI e o entregam ao presidente da Câmara. Segundo o Regimento citado pela imprensa, a CEI precisa ser requerida por um terço dos vereadores e aprovada em plenário.",
-          "fonte": "BNews",
-          "url": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html"
-        },
-        {
-          "data": "Data a confirmar",
-          "texto": "TRE-BA mantém a multa e envia cópia dos autos à Procuradoria Regional Eleitoral e à Polícia Federal para apuração de responsabilidade criminal.",
-          "fonte": "A Tarde",
-          "url": "https://atarde.com.br/politica/tre-mantem-multa-e-investigacao-da-pf-na-reducao-de-frota-em-salvador-1407179"
-        }
-      ],
-      "documentos": [],
-      "mensagem": "Olá, vereador(a) {nome}. Sou morador(a) de Salvador e escrevo como cidadão(ã). No segundo turno das eleições (25/10), o TRE-BA determinou o restabelecimento integral da frota de ônibus e mandou apurar a redução da circulação, apontando indícios, em tese, de violação ao Código Eleitoral. A apuração segue em curso e a Prefeitura nega ter orientado a redução. Cabe à Câmara fiscalizar o Executivo. Em 27/10 foi protocolado requerimento de Comissão Especial de Inquérito, que precisa de 14 assinaturas: peço que o(a) senhor(a) o assine, garantidos o contraditório e a ampla defesa, e informe publicamente sua posição. Aguardo resposta.",
-      "assinaturas": {
-        "necessarias": 14,
-        "fonteNome": "BNews",
-        "fonteUrl": "https://www.bnews.com.br/noticias/politica/oposicao-protocola-pedido-que-pode-dar-inicio-a-impeachment-de-bruno-reis-por-onibus-retidos-nas-garagens-no-segundo-turno.html",
-        "atualizadoEm": "29/10/2026"
-      }
-    }
-  ]
-}
